@@ -15,7 +15,7 @@ import {
   Shield,
   Lock,
   Activity,
-  Users,
+  // Users,
   Star
 } from 'lucide-react';
 
@@ -139,7 +139,7 @@ export default function DashboardPage() {
             Welcome back, {mockUser.name}!
           </h1>
           <p className="cyber-subtitle">
-            Continue your cybersecurity journey. You're making great progress!
+            Continue your cybersecurity journey. You&apos;re making great progress!
           </p>
         </motion.div>
 

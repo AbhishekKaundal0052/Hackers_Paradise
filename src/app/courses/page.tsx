@@ -2,15 +2,17 @@
 
 import { useState } from 'react'
 import { motion } from 'framer-motion'
-import { Search, Filter, BookOpen, Clock, Star, Users, Zap } from 'lucide-react'
+import { Search, BookOpen, Clock, Star, Users, Zap } from 'lucide-react'
 import Layout from '@/components/layout/Layout'
-import CyberCard from '@/components/common/CyberCard'
+// import CyberCard from '@/components/common/CyberCard'
 import CyberButton from '@/components/common/CyberButton'
 import { Badge } from '@/components/ui/badge'
-import { getCategoryIcon, getDifficultyColor, formatDuration, formatCurrency } from '@/lib/utils'
+import {
+   formatDuration, formatCurrency
+} from '@/lib/utils'
 import { CourseCategory, Difficulty } from '@/types'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { Button } from '@/components/ui/button'
+// import { Button } from '@/components/ui/button'
 
 // Mock data for courses
 const mockCourses = [
@@ -74,9 +76,12 @@ const categories = Object.values(CourseCategory)
 const difficulties = Object.values(Difficulty)
 
 export default function CoursesPage() {
-  const [selectedCategory, setSelectedCategory] = useState<CourseCategory | 'all'>('all')
-  const [selectedDifficulty, setSelectedDifficulty] = useState<Difficulty | 'all'>('all')
-  const [searchQuery, setSearchQuery] = useState('')
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [selectedCategory, _setSelectedCategory] = useState<CourseCategory | 'all'>('all')
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [selectedDifficulty, _setSelectedDifficulty] = useState<Difficulty | 'all'>('all')
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [searchQuery, _setSearchQuery] = useState('')
 
   const filteredCourses = mockCourses.filter(course => {
     const matchesCategory = selectedCategory === 'all' || course.category === selectedCategory

@@ -35,34 +35,9 @@ interface LayoutProps {
   }>
 }
 
-export default function Layout({ 
-  children, 
-  showSidebar = false,
-  user,
-  stats,
-  recentActivity
-}: LayoutProps) {
-  const [theme, setTheme] = useState<'light' | 'dark'>('dark')
-  const [isLoading, setIsLoading] = useState(true)
-  const [notifications, setNotifications] = useState(3)
-
-  useEffect(() => {
-    // Simulate loading
-    const timer = setTimeout(() => setIsLoading(false), 1000)
-    return () => clearTimeout(timer)
-  }, [])
-
-  useEffect(() => {
-    // Apply theme to document
-    document.documentElement.classList.toggle('dark', theme === 'dark')
-  }, [theme])
-
-  const handleThemeChange = (newTheme: 'light' | 'dark') => {
-    setTheme(newTheme)
-  }
-
-  // Geometric background pattern
-  const backgroundPattern = (
+// Extract background pattern as a reusable component
+function BackgroundPattern() {
+  return (
     <div className="fixed inset-0 -z-10 overflow-hidden">
       <div className="absolute inset-0 bg-gradient-to-br from-black via-gray-900 to-black"></div>
       <div className="absolute inset-0 opacity-20">
@@ -82,12 +57,40 @@ export default function Layout({
       </div>
     </div>
   )
+}
+
+export default function Layout({ 
+  children, 
+  showSidebar = false,
+  user,
+  stats,
+  recentActivity
+}: LayoutProps) {
+  const [theme, setTheme] = useState<'light' | 'dark'>('dark')
+  const [isLoading, setIsLoading] = useState(true)
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [_notifications, setNotifications] = useState(3)
+
+  useEffect(() => {
+    // Simulate loading
+    const timer = setTimeout(() => setIsLoading(false), 1000)
+    return () => clearTimeout(timer)
+  }, [])
+
+  useEffect(() => {
+    // Apply theme to document
+    document.documentElement.classList.toggle('dark', theme === 'dark')
+  }, [theme])
+
+  const handleThemeChange = (newTheme: 'light' | 'dark') => {
+    setTheme(newTheme)
+  }
 
   // Loading animation
   if (isLoading) {
     return (
       <div className="min-h-screen bg-black flex items-center justify-center">
-        {backgroundPattern}
+        <BackgroundPattern />
         <motion.div
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
@@ -98,7 +101,7 @@ export default function Layout({
             transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
             className="w-16 h-16 border-4 border-primary border-t-transparent rounded-full mx-auto mb-4"
           />
-          <h2 className="cyber-title text-2xl mb-2">Hacker's Paradise</h2>
+          <h2 className="cyber-title text-2xl mb-2">Hacker&apos;s Paradise</h2>
           <p className="cyber-subtitle">Loading your security journey...</p>
           <div className="loading-dots mt-4">
             <div></div>
@@ -112,12 +115,12 @@ export default function Layout({
 
   return (
     <div className={`min-h-screen ${theme === 'dark' ? 'dark' : ''}`}>
-      {backgroundPattern}
+      <BackgroundPattern />
       
       {/* Header */}
       <Header 
         user={user}
-        notifications={notifications}
+        notifications={_notifications}
         theme={theme}
         onThemeChange={handleThemeChange}
       />
@@ -242,13 +245,13 @@ export function RouteLoading() {
 }
 
 // Error boundary wrapper
-export function ErrorBoundary({ children }: { children: React.ReactNode }) {
+export function ErrorBoundary() {
   return (
     <div className="min-h-screen bg-black flex items-center justify-center">
-      {backgroundPattern}
+      <BackgroundPattern />
       <div className="text-center">
         <h2 className="cyber-title text-2xl mb-4">Something went wrong</h2>
-        <p className="cyber-subtitle mb-6">Don't worry, even the best hackers encounter bugs</p>
+        <p className="cyber-subtitle mb-6">Don&apos;t worry, even the best hackers encounter bugs</p>
         <Button 
           onClick={() => window.location.reload()} 
           className="cyber-button"
@@ -258,4 +261,4 @@ export function ErrorBoundary({ children }: { children: React.ReactNode }) {
       </div>
     </div>
   )
-} 
+}

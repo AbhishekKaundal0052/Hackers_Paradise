@@ -116,7 +116,7 @@ export default function Header({
                 <div className="absolute inset-0 bg-gradient-to-br from-primary to-accent rounded-lg blur-sm opacity-50"></div>
               </div>
               <span className="font-cyber font-bold text-xl text-white">
-                Hacker's Paradise
+                Hacker&apos;s Paradise
               </span>
             </Link>
           </motion.div>

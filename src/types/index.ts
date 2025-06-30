@@ -273,17 +273,17 @@ export interface ButtonProps {
 
 // Animation types
 export interface AnimationConfig {
-  initial?: any;
-  animate?: any;
-  exit?: any;
-  transition?: any;
+  initial?: Record<string, unknown>;
+  animate?: Record<string, unknown>;
+  exit?: Record<string, unknown>;
+  transition?: Record<string, unknown>;
 }
 
 // Error types
 export interface AppError {
   code: string;
   message: string;
-  details?: any;
+  details?: Record<string, unknown>;
 }
 
 // Theme types
