@@ -553,25 +553,25 @@ export default function DashboardPage() {
             )}
           </AnimatePresence>
 
-          {/* Welcome Section */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="mb-8"
-          >
-            <h1 className="cyber-title text-3xl mb-2">
-              Welcome back, {mockUser.name}!
-            </h1>
-            <p className="cyber-subtitle">
-              Continue your cybersecurity journey. You&apos;re making great progress!
-            </p>
-          </motion.div>
+        {/* Welcome Section */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="mb-8"
+        >
+          <h1 className="cyber-title text-3xl mb-2">
+            Welcome back, {mockUser.name}!
+          </h1>
+          <p className="cyber-subtitle">
+            Continue your cybersecurity journey. You&apos;re making great progress!
+          </p>
+        </motion.div>
 
           {/* Filter and Sort Controls */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.1 }}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.1 }}
             className="mb-6"
           >
             <FilterSortControls
@@ -579,7 +579,7 @@ export default function DashboardPage() {
               onSortChange={handleSortChange}
               onSearchChange={handleSearchChange}
             />
-          </motion.div>
+        </motion.div>
 
           {/* Real-Time Updates */}
           <motion.div
@@ -644,8 +644,8 @@ export default function DashboardPage() {
 
               {/* Deadlines Card */}
               <DeadlinesCard deadlines={deadlines} />
-            </div>
-          </div>
+                  </div>
+                </div>
 
           {/* Modal for Detailed Views */}
           <Dialog open={showModal} onOpenChange={setShowModal}>
@@ -674,8 +674,8 @@ export default function DashboardPage() {
               </div>
             </DialogContent>
           </Dialog>
-        </div>
-      </Layout>
+      </div>
+    </Layout>
     </TooltipProvider>
   );
 } 
