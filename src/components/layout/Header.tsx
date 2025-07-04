@@ -256,12 +256,16 @@ export default function Header({
               </DropdownMenu>
             ) : (
               <div className="flex items-center space-x-2">
-                <Button variant="ghost" className="text-white hover:bg-white/10">
-                  Sign In
-                </Button>
-                <Button className="cyber-button">
-                  Get Started
-                </Button>
+                <Link href="/sign-in">
+                  <Button variant="ghost" className="text-white hover:bg-white/10">
+                    Sign In
+                  </Button>
+                </Link>
+                <Link href="/sign-up">
+                  <Button className="cyber-button">
+                    Get Started
+                  </Button>
+                </Link>
               </div>
             )}
 
