@@ -12,7 +12,7 @@ import { CourseCategory, Difficulty, Course, UserRole } from '@/types'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
+import { Select } from '@/components/ui/select'
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip'
 import { Skeleton } from '@/components/ui/skeleton'
 
@@ -750,58 +750,38 @@ export default function CoursesPage() {
             {/* Filters */}
             <div className="flex flex-wrap items-center space-x-4">
               <Select value={selectedDifficulty} onValueChange={setSelectedDifficulty}>
-                <SelectTrigger className="w-40 bg-white/5 border-white/10">
-                  <SelectValue placeholder="Difficulty" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="all">All Difficulties</SelectItem>
-                  <SelectItem value="beginner">Beginner</SelectItem>
-                  <SelectItem value="intermediate">Intermediate</SelectItem>
-                  <SelectItem value="advanced">Advanced</SelectItem>
-                  <SelectItem value="expert">Expert</SelectItem>
-                </SelectContent>
+                <option value="all">All Difficulties</option>
+                <option value="beginner">Beginner</option>
+                <option value="intermediate">Intermediate</option>
+                <option value="advanced">Advanced</option>
+                <option value="expert">Expert</option>
               </Select>
 
               <Select value={selectedCategory} onValueChange={setSelectedCategory}>
-                <SelectTrigger className="w-48 bg-white/5 border-white/10">
-                  <SelectValue placeholder="Category" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="all">All Categories</SelectItem>
-                  <SelectItem value="penetration_testing">Penetration Testing</SelectItem>
-                  <SelectItem value="web_security">Web Security</SelectItem>
-                  <SelectItem value="network_security">Network Security</SelectItem>
-                  <SelectItem value="cryptography">Cryptography</SelectItem>
-                  <SelectItem value="forensics">Forensics</SelectItem>
-                  <SelectItem value="malware_analysis">Malware Analysis</SelectItem>
-                </SelectContent>
+                <option value="all">All Categories</option>
+                <option value="penetration_testing">Penetration Testing</option>
+                <option value="web_security">Web Security</option>
+                <option value="network_security">Network Security</option>
+                <option value="cryptography">Cryptography</option>
+                <option value="forensics">Forensics</option>
+                <option value="malware_analysis">Malware Analysis</option>
               </Select>
 
-              <Select value={selectedDuration} onValueChange={setSelectedDuration}>
-                <SelectTrigger className="w-40 bg-white/5 border-white/10">
-                  <SelectValue placeholder="Duration" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="all">Any Duration</SelectItem>
-                  <SelectItem value="0-2">0-2 hours</SelectItem>
-                  <SelectItem value="2-5">2-5 hours</SelectItem>
-                  <SelectItem value="5-10">5-10 hours</SelectItem>
-                  <SelectItem value="10-">10+ hours</SelectItem>
-                </SelectContent>
+              <Select value={selectedDuration} onChange={e => setSelectedDuration(e.target.value)}>
+                <option value="all">Any Duration</option>
+                <option value="0-2">0-2 hours</option>
+                <option value="2-5">2-5 hours</option>
+                <option value="5-10">5-10 hours</option>
+                <option value="10-">10+ hours</option>
               </Select>
 
               <Select value={sortBy} onValueChange={setSortBy}>
-                <SelectTrigger className="w-40 bg-white/5 border-white/10">
-                  <SelectValue placeholder="Sort by" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="popular">Most Popular</SelectItem>
-                  <SelectItem value="rating">Highest Rated</SelectItem>
-                  <SelectItem value="newest">Newest</SelectItem>
-                  <SelectItem value="price-low">Price: Low to High</SelectItem>
-                  <SelectItem value="price-high">Price: High to Low</SelectItem>
-                  <SelectItem value="duration">Duration</SelectItem>
-                </SelectContent>
+                <option value="popular">Most Popular</option>
+                <option value="rating">Highest Rated</option>
+                <option value="newest">Newest</option>
+                <option value="price-low">Price: Low to High</option>
+                <option value="price-high">Price: High to Low</option>
+                <option value="duration">Duration</option>
               </Select>
             </div>
 
@@ -875,8 +855,8 @@ export default function CoursesPage() {
             >
               {filteredCourses.map((course) => (
                 <CourseListItem key={course.id} course={course} />
-          ))}
-        </motion.div>
+              ))}
+            </motion.div>
           )}
         </AnimatePresence>
 

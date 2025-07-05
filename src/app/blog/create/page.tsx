@@ -24,7 +24,7 @@ import {
   Calendar,
   User
 } from 'lucide-react';
-
+import { Select } from '@/components/ui/select';
 export default function CreateBlogPage() {
   const [form, setForm] = useState({
     title: '',
@@ -96,7 +96,7 @@ export default function CreateBlogPage() {
                   </div>
                   <div>
                     <label className="block text-gray-300 mb-2">Category</label>
-                    <select
+                    <Select
                       value={form.category}
                       onChange={(e) => setForm(prev => ({ ...prev, category: e.target.value }))}
                       className="w-full p-2 rounded bg-slate-900 text-white border border-slate-700"
@@ -106,7 +106,7 @@ export default function CreateBlogPage() {
                       <option value="case_study">Case Study</option>
                       <option value="news">News</option>
                       <option value="opinion">Opinion</option>
-                    </select>
+                    </Select>
                   </div>
                   <div>
                     <label className="block text-gray-300 mb-2">Tags</label>
@@ -286,14 +286,14 @@ export default function CreateBlogPage() {
                 <div className="space-y-4">
                   <div>
                     <label className="block text-gray-300 mb-2">Publish Status</label>
-                    <select
+                    <Select
                       value={form.isPublished ? 'published' : 'draft'}
                       onChange={(e) => setForm(prev => ({ ...prev, isPublished: e.target.value === 'published' }))}
                       className="w-full p-2 rounded bg-slate-900 text-white border border-slate-700"
                     >
                       <option value="draft">Draft</option>
                       <option value="published">Published</option>
-                    </select>
+                    </Select>
                   </div>
                   <div>
                     <label className="block text-gray-300 mb-2">Reading Time (minutes)</label>
