@@ -749,7 +749,7 @@ export default function CoursesPage() {
           <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between space-y-4 lg:space-y-0">
             {/* Filters */}
             <div className="flex flex-wrap items-center space-x-4">
-              <Select value={selectedDifficulty} onValueChange={setSelectedDifficulty}>
+              <Select value={selectedDifficulty} onChange={e => setSelectedDifficulty(e.target.value)}>
                 <option value="all">All Difficulties</option>
                 <option value="beginner">Beginner</option>
                 <option value="intermediate">Intermediate</option>
@@ -757,7 +757,7 @@ export default function CoursesPage() {
                 <option value="expert">Expert</option>
               </Select>
 
-              <Select value={selectedCategory} onValueChange={setSelectedCategory}>
+              <Select value={selectedCategory} onChange={e => setSelectedCategory(e.target.value)}>
                 <option value="all">All Categories</option>
                 <option value="penetration_testing">Penetration Testing</option>
                 <option value="web_security">Web Security</option>
@@ -775,7 +775,7 @@ export default function CoursesPage() {
                 <option value="10-">10+ hours</option>
               </Select>
 
-              <Select value={sortBy} onValueChange={setSortBy}>
+              <Select value={sortBy} onChange={e => setSortBy(e.target.value)}>
                 <option value="popular">Most Popular</option>
                 <option value="rating">Highest Rated</option>
                 <option value="newest">Newest</option>

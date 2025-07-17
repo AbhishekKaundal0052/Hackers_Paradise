@@ -1,16 +1,12 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import Layout from '@/components/layout/Layout';
-import { Bounty, BountyCategory, BountyStatus, Difficulty } from '@/types';
+// import Layout from '@/components/layout/Layout';
+import { Bounty, Difficulty, BountyStatus, BountyCategory } from '@/types';
 import { BountyCard } from '@/components/bounties/BountyCard';
 import { BountyFilters } from '@/components/bounties/BountyFilters';
 import { BountySearch } from '@/components/bounties/BountySearch';
-import { BountyStats } from '@/components/bounties/BountyStats';
-import { Button } from '@/components/ui/button';
-import { Badge } from '@/components/ui/badge';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Card, CardContent } from '@/components/ui/card';
 import { 
   Search, 
   Filter, 
@@ -160,137 +156,135 @@ export default function BountiesPage() {
   };
 
   return (
-    <Layout>
-      <div className="container mx-auto px-4 py-8">
-        {/* Header */}
-        <div className="mb-8">
-          <h1 className="text-4xl font-bold text-white mb-2">Bug Bounty Programs</h1>
-          <p className="text-gray-300 text-lg">
-            Hunt vulnerabilities, earn rewards, and build your reputation
-          </p>
-        </div>
+    <div className="container mx-auto px-4 py-8">
+      {/* Header */}
+      <div className="mb-8">
+        <h1 className="text-4xl font-bold text-white mb-2">Bug Bounty Programs</h1>
+        <p className="text-gray-300 text-lg">
+          Hunt vulnerabilities, earn rewards, and build your reputation
+        </p>
+      </div>
 
-        {/* Stats Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-          <Card className="bg-slate-800/50 border-slate-700">
-            <CardContent className="p-6">
-              <div className="flex items-center space-x-3">
-                <div className="p-2 bg-blue-500/20 rounded-lg">
-                  <Target className="h-6 w-6 text-blue-400" />
-                </div>
-                <div>
-                  <p className="text-sm text-gray-400">Total Bounties</p>
-                  <p className="text-2xl font-bold text-white">{stats.totalBounties}</p>
-                </div>
+      {/* Stats Cards */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+        <Card className="bg-slate-800/50 border-slate-700">
+          <CardContent className="p-6">
+            <div className="flex items-center space-x-3">
+              <div className="p-2 bg-blue-500/20 rounded-lg">
+                <Target className="h-6 w-6 text-blue-400" />
               </div>
-            </CardContent>
-          </Card>
-
-          <Card className="bg-slate-800/50 border-slate-700">
-            <CardContent className="p-6">
-              <div className="flex items-center space-x-3">
-                <div className="p-2 bg-green-500/20 rounded-lg">
-                  <DollarSign className="h-6 w-6 text-green-400" />
-                </div>
-                <div>
-                  <p className="text-sm text-gray-400">Total Rewards</p>
-                  <p className="text-2xl font-bold text-white">${stats.totalReward.toLocaleString()}</p>
-                </div>
+              <div>
+                <p className="text-sm text-gray-400">Total Bounties</p>
+                <p className="text-2xl font-bold text-white">{stats.totalBounties}</p>
               </div>
-            </CardContent>
-          </Card>
+            </div>
+          </CardContent>
+        </Card>
 
-          <Card className="bg-slate-800/50 border-slate-700">
-            <CardContent className="p-6">
-              <div className="flex items-center space-x-3">
-                <div className="p-2 bg-yellow-500/20 rounded-lg">
-                  <Zap className="h-6 w-6 text-yellow-400" />
-                </div>
-                <div>
-                  <p className="text-sm text-gray-400">Active Bounties</p>
-                  <p className="text-2xl font-bold text-white">{stats.activeBounties}</p>
-                </div>
+        <Card className="bg-slate-800/50 border-slate-700">
+          <CardContent className="p-6">
+            <div className="flex items-center space-x-3">
+              <div className="p-2 bg-green-500/20 rounded-lg">
+                <DollarSign className="h-6 w-6 text-green-400" />
               </div>
-            </CardContent>
-          </Card>
-
-          <Card className="bg-slate-800/50 border-slate-700">
-            <CardContent className="p-6">
-              <div className="flex items-center space-x-3">
-                <div className="p-2 bg-purple-500/20 rounded-lg">
-                  <Trophy className="h-6 w-6 text-purple-400" />
-                </div>
-                <div>
-                  <p className="text-sm text-gray-400">Avg Reward</p>
-                  <p className="text-2xl font-bold text-white">${stats.avgReward.toLocaleString()}</p>
-                </div>
+              <div>
+                <p className="text-sm text-gray-400">Total Rewards</p>
+                <p className="text-2xl font-bold text-white">${stats.totalReward.toLocaleString()}</p>
               </div>
-            </CardContent>
-          </Card>
-        </div>
+            </div>
+          </CardContent>
+        </Card>
 
-        {/* Search and Filters */}
-        <div className="mb-8">
-          <BountySearch 
-            searchTerm={searchTerm}
-            onSearchChange={setSearchTerm}
-            onSortChange={setSortBy}
-            sortBy={sortBy}
-            viewMode={viewMode}
-            onViewModeChange={setViewMode}
+        <Card className="bg-slate-800/50 border-slate-700">
+          <CardContent className="p-6">
+            <div className="flex items-center space-x-3">
+              <div className="p-2 bg-yellow-500/20 rounded-lg">
+                <Zap className="h-6 w-6 text-yellow-400" />
+              </div>
+              <div>
+                <p className="text-sm text-gray-400">Active Bounties</p>
+                <p className="text-2xl font-bold text-white">{stats.activeBounties}</p>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+
+        <Card className="bg-slate-800/50 border-slate-700">
+          <CardContent className="p-6">
+            <div className="flex items-center space-x-3">
+              <div className="p-2 bg-purple-500/20 rounded-lg">
+                <Trophy className="h-6 w-6 text-purple-400" />
+              </div>
+              <div>
+                <p className="text-sm text-gray-400">Avg Reward</p>
+                <p className="text-2xl font-bold text-white">${stats.avgReward.toLocaleString()}</p>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+      </div>
+
+      {/* Search and Filters */}
+      <div className="mb-8">
+        <BountySearch 
+          searchTerm={searchTerm}
+          onSearchChange={setSearchTerm}
+          onSortChange={setSortBy}
+          sortBy={sortBy}
+          viewMode={viewMode}
+          onViewModeChange={setViewMode}
+        />
+      </div>
+
+      <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
+        {/* Filters Sidebar */}
+        <div className="lg:col-span-1">
+          <BountyFilters
+            selectedCategory={selectedCategory}
+            selectedDifficulty={selectedDifficulty}
+            selectedStatus={selectedStatus}
+            rewardRange={rewardRange}
+            onCategoryChange={setSelectedCategory}
+            onDifficultyChange={setSelectedDifficulty}
+            onStatusChange={setSelectedStatus}
+            onRewardRangeChange={setRewardRange}
           />
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
-          {/* Filters Sidebar */}
-          <div className="lg:col-span-1">
-            <BountyFilters
-              selectedCategory={selectedCategory}
-              selectedDifficulty={selectedDifficulty}
-              selectedStatus={selectedStatus}
-              rewardRange={rewardRange}
-              onCategoryChange={setSelectedCategory}
-              onDifficultyChange={setSelectedDifficulty}
-              onStatusChange={setSelectedStatus}
-              onRewardRangeChange={setRewardRange}
-            />
+        {/* Bounties Grid */}
+        <div className="lg:col-span-3">
+          <div className="mb-4 flex justify-between items-center">
+            <p className="text-gray-300">
+              Showing {filteredBounties.length} of {bounties.length} bounties
+            </p>
           </div>
 
-          {/* Bounties Grid */}
-          <div className="lg:col-span-3">
-            <div className="mb-4 flex justify-between items-center">
-              <p className="text-gray-300">
-                Showing {filteredBounties.length} of {bounties.length} bounties
-              </p>
+          {filteredBounties.length === 0 ? (
+            <Card className="bg-slate-800/50 border-slate-700">
+              <CardContent className="p-12 text-center">
+                <Search className="h-12 w-12 text-gray-500 mx-auto mb-4" />
+                <h3 className="text-xl font-semibold text-white mb-2">No bounties found</h3>
+                <p className="text-gray-400">
+                  Try adjusting your filters or search terms
+                </p>
+              </CardContent>
+            </Card>
+          ) : (
+            <div className={viewMode === 'grid' 
+              ? 'grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6' 
+              : 'space-y-4'
+            }>
+              {filteredBounties.map((bounty) => (
+                <BountyCard 
+                  key={bounty.id} 
+                  bounty={bounty} 
+                  viewMode={viewMode}
+                />
+              ))}
             </div>
-
-            {filteredBounties.length === 0 ? (
-              <Card className="bg-slate-800/50 border-slate-700">
-                <CardContent className="p-12 text-center">
-                  <Search className="h-12 w-12 text-gray-500 mx-auto mb-4" />
-                  <h3 className="text-xl font-semibold text-white mb-2">No bounties found</h3>
-                  <p className="text-gray-400">
-                    Try adjusting your filters or search terms
-                  </p>
-                </CardContent>
-              </Card>
-            ) : (
-              <div className={viewMode === 'grid' 
-                ? 'grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6' 
-                : 'space-y-4'
-              }>
-                {filteredBounties.map((bounty) => (
-                  <BountyCard 
-                    key={bounty.id} 
-                    bounty={bounty} 
-                    viewMode={viewMode}
-                  />
-                ))}
-              </div>
-            )}
-          </div>
+          )}
         </div>
       </div>
-    </Layout>
+    </div>
   );
 } 

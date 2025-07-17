@@ -1,26 +1,15 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import Layout from '@/components/layout/Layout';
-import { BlogPost, BlogCategory, User } from '@/types';
+import { BookOpen, Heart } from 'lucide-react';
+import { User, BlogPost, UserRole, BlogCategory } from '@/types';
+import { Card, CardContent } from '@/components/ui/card';
 import { BlogCard } from '@/components/blog/BlogCard';
-import { BlogFilters } from '@/components/blog/BlogFilters';
-import { BlogSearch } from '@/components/blog/BlogSearch';
 import { FeaturedCarousel } from '@/components/blog/FeaturedCarousel';
+import { BlogSearch } from '@/components/blog/BlogSearch';
+import { BlogFilters } from '@/components/blog/BlogFilters';
 import { TagCloud } from '@/components/blog/TagCloud';
 import { AuthorCard } from '@/components/blog/AuthorCard';
-import { Card, CardContent } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
-import { 
-  Clock, 
-  Eye, 
-  Heart, 
-  MessageCircle, 
-  Share2,
-  TrendingUp,
-  Users,
-  BookOpen
-} from 'lucide-react';
 
 // Mock blog data
 const mockBlogPosts: BlogPost[] = [
@@ -35,7 +24,7 @@ const mockBlogPosts: BlogPost[] = [
       username: 'cyberhunter',
       email: 'hunter@example.com',
       avatar: '/api/placeholder/40/40',
-      role: 'hunter',
+      role: UserRole.HUNTER,
       level: 15,
       experience: 5000,
       badges: [],
@@ -44,14 +33,13 @@ const mockBlogPosts: BlogPost[] = [
     },
     coverImage: '/api/placeholder/800/400',
     tags: ['SQL Injection', 'Penetration Testing', 'Web Security', 'Database'],
-    category: 'tutorial',
+    category: BlogCategory.TUTORIAL,
     publishedAt: new Date('2024-01-15'),
     updatedAt: new Date('2024-01-15'),
     readTime: 12,
     views: 15420,
     likes: 892,
     comments: [],
-    featured: true
   },
   {
     id: '2',
@@ -64,7 +52,7 @@ const mockBlogPosts: BlogPost[] = [
       username: 'apisecurity',
       email: 'api@example.com',
       avatar: '/api/placeholder/40/40',
-      role: 'hunter',
+      role: UserRole.HUNTER,
       level: 12,
       experience: 3500,
       badges: [],
@@ -73,14 +61,13 @@ const mockBlogPosts: BlogPost[] = [
     },
     coverImage: '/api/placeholder/800/400',
     tags: ['API Security', 'Development', 'Authentication', 'OAuth'],
-    category: 'tutorial',
+    category: BlogCategory.TUTORIAL,
     publishedAt: new Date('2024-01-10'),
     updatedAt: new Date('2024-01-10'),
     readTime: 8,
     views: 8920,
     likes: 456,
     comments: [],
-    featured: true
   },
   {
     id: '3',
@@ -93,7 +80,7 @@ const mockBlogPosts: BlogPost[] = [
       username: 'ai_security',
       email: 'ai@example.com',
       avatar: '/api/placeholder/40/40',
-      role: 'hunter',
+      role: UserRole.HUNTER,
       level: 18,
       experience: 7500,
       badges: [],
@@ -102,14 +89,13 @@ const mockBlogPosts: BlogPost[] = [
     },
     coverImage: '/api/placeholder/800/400',
     tags: ['AI Security', 'Machine Learning', 'Threat Intelligence', 'Emerging Threats'],
-    category: 'research',
+    category: BlogCategory.RESEARCH,
     publishedAt: new Date('2024-01-08'),
     updatedAt: new Date('2024-01-08'),
     readTime: 15,
     views: 12340,
     likes: 678,
     comments: [],
-    featured: true
   },
   {
     id: '4',
@@ -122,7 +108,7 @@ const mockBlogPosts: BlogPost[] = [
       username: 'cryptomaster',
       email: 'crypto@example.com',
       avatar: '/api/placeholder/40/40',
-      role: 'hunter',
+      role: UserRole.HUNTER,
       level: 20,
       experience: 10000,
       badges: [],
@@ -131,14 +117,13 @@ const mockBlogPosts: BlogPost[] = [
     },
     coverImage: '/api/placeholder/800/400',
     tags: ['CTF', 'Cryptography', 'Challenge', 'Walkthrough'],
-    category: 'case_study',
+    category: BlogCategory.CASE_STUDY,
     publishedAt: new Date('2024-01-05'),
     updatedAt: new Date('2024-01-05'),
     readTime: 20,
     views: 5670,
     likes: 234,
     comments: [],
-    featured: false
   },
   {
     id: '5',
@@ -151,7 +136,7 @@ const mockBlogPosts: BlogPost[] = [
       username: 'zeroday_expert',
       email: 'zero@example.com',
       avatar: '/api/placeholder/40/40',
-      role: 'hunter',
+      role: UserRole.HUNTER,
       level: 25,
       experience: 15000,
       badges: [],
@@ -160,14 +145,13 @@ const mockBlogPosts: BlogPost[] = [
     },
     coverImage: '/api/placeholder/800/400',
     tags: ['Zero-Day', 'Vulnerabilities', 'Threat Intelligence', 'Exploitation'],
-    category: 'research',
+    category: BlogCategory.RESEARCH,
     publishedAt: new Date('2024-01-03'),
     updatedAt: new Date('2024-01-03'),
     readTime: 18,
     views: 9870,
     likes: 543,
     comments: [],
-    featured: false
   }
 ];
 
@@ -177,7 +161,7 @@ const mockAuthors: User[] = [
     username: 'cyberhunter',
     email: 'hunter@example.com',
     avatar: '/api/placeholder/60/60',
-    role: 'hunter',
+    role: UserRole.HUNTER,
     level: 15,
     experience: 5000,
     badges: [],
@@ -189,7 +173,7 @@ const mockAuthors: User[] = [
     username: 'apisecurity',
     email: 'api@example.com',
     avatar: '/api/placeholder/60/60',
-    role: 'hunter',
+    role: UserRole.HUNTER,
     level: 12,
     experience: 3500,
     badges: [],
@@ -206,20 +190,20 @@ const popularTags = [
 ];
 
 export default function BlogPage() {
-  const [posts, setPosts] = useState<BlogPost[]>(mockBlogPosts);
-  const [filteredPosts, setFilteredPosts] = useState<BlogPost[]>(mockBlogPosts);
+  const [posts] = useState<BlogPost[]>(mockBlogPosts);
+  const [filteredPosts] = useState<BlogPost[]>(mockBlogPosts);
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState<BlogCategory | 'all'>('all');
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
   const [sortBy, setSortBy] = useState<'newest' | 'popular' | 'trending'>('newest');
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
 
-  const featuredPosts = posts.filter(post => post.featured);
-  const regularPosts = posts.filter(post => !post.featured);
+  // For featuredPosts, use a tag or another property, e.g. posts with 'Featured' in tags
+  const featuredPosts = posts.filter(post => post.tags.includes('Featured'));
 
   // Filter and sort posts
   useEffect(() => {
-    let filtered = posts.filter(post => {
+    const filtered = posts.filter(post => {
       const matchesSearch = post.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
                            post.excerpt.toLowerCase().includes(searchTerm.toLowerCase()) ||
                            post.tags.some(tag => tag.toLowerCase().includes(searchTerm.toLowerCase()));
@@ -242,8 +226,6 @@ export default function BlogPage() {
           return new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime();
       }
     });
-
-    setFilteredPosts(filtered);
   }, [posts, searchTerm, selectedCategory, selectedTags, sortBy]);
 
   const stats = {
@@ -254,15 +236,14 @@ export default function BlogPage() {
   };
 
   return (
-    <Layout>
-      <div className="container mx-auto px-4 py-8">
-        {/* Header */}
-        <div className="mb-8">
-          <h1 className="text-4xl font-bold text-white mb-2">Security Blog</h1>
-          <p className="text-gray-300 text-lg">
-            Insights, tutorials, and research from the cybersecurity community
-          </p>
-        </div>
+    <div className="container mx-auto px-4 py-8">
+      {/* Header */}
+      <div className="mb-8">
+        <h1 className="text-4xl font-bold text-white mb-2">Security Blog</h1>
+        <p className="text-gray-300 text-lg">
+          Insights, tutorials, and research from the cybersecurity community
+        </p>
+      </div>
 
         {/* Stats Cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
@@ -284,7 +265,7 @@ export default function BlogPage() {
             <CardContent className="p-6">
               <div className="flex items-center space-x-3">
                 <div className="p-2 bg-green-500/20 rounded-lg">
-                  <Eye className="h-6 w-6 text-green-400" />
+                  <BookOpen className="h-6 w-6 text-green-400" />
                 </div>
                 <div>
                   <p className="text-sm text-gray-400">Total Views</p>
@@ -312,7 +293,7 @@ export default function BlogPage() {
             <CardContent className="p-6">
               <div className="flex items-center space-x-3">
                 <div className="p-2 bg-purple-500/20 rounded-lg">
-                  <Clock className="h-6 w-6 text-purple-400" />
+                  <BookOpen className="h-6 w-6 text-purple-400" />
                 </div>
                 <div>
                   <p className="text-sm text-gray-400">Avg Read Time</p>
@@ -420,6 +401,5 @@ export default function BlogPage() {
           </div>
         </div>
       </div>
-    </Layout>
   );
 } 

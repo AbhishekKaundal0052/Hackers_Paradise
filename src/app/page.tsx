@@ -8,13 +8,13 @@ import MouseLightEffect from '@/components/features/MouseLightEffect'
 
 export default function HomePage() {
   return (
-    <Layout showSidebar={false}>
+    <>
       <MouseLightEffect />
       <MatrixBackground />
       <Hero />
       <Features />
       <Statistics />
       <Testimonials />
-    </Layout>
+    </>
   )
 }

@@ -6,7 +6,7 @@ import { Shield, Lock, Smartphone, Monitor, Download, Trash2, AlertTriangle, Che
 import { SecuritySettings as SecuritySettingsType } from '@/types/settings';
 import { Input } from '@/components/ui/input';
 import { Select } from '@/components/ui/select';
-
+import { Button } from '@/components/ui/button';
 interface SecuritySettingsProps {
   onChanges: (hasChanges: boolean) => void;
 }
@@ -378,15 +378,15 @@ export function SecuritySettings({ onChanges }: SecuritySettingsProps) {
                 </div>
               </div>
               <div className="flex items-center space-x-2">
-                {session.isCurrent && (
+                {session.device.isCurrent && (
                   <span className="px-2 py-1 bg-green-500/20 text-green-400 text-xs rounded-full">
                     Current
                   </span>
                 )}
-                {!session.isCurrent && (
-                  <button className="text-red-400 hover:text-red-300 transition-colors">
+                {!session.device.isCurrent && (
+                  <Button className="text-red-400 hover:text-red-300 transition-colors">
                     <Trash2 className="w-4 h-4" />
-                  </button>
+                  </Button>
                 )}
               </div>
             </div>

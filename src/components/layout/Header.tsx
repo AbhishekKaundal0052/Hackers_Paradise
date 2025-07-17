@@ -151,7 +151,7 @@ export default function Header({
                 onChange={(e) => handleSearch(e.target.value)}
                 onFocus={() => setIsSearchFocused(true)}
                 onBlur={() => setTimeout(() => setIsSearchFocused(false), 200)}
-                className="pl-10 pr-4 bg-white/5 border-white/20 text-white placeholder:text-muted-foreground focus:border-primary focus:ring-primary"
+                className="pl-10 pr-4 p-2 rounded-lg bg-white/5 border-white/20 text-white placeholder:text-muted-foreground focus:border-primary focus:ring-primary"
               />
               
               {/* Search Results Dropdown */}
@@ -180,7 +180,7 @@ export default function Header({
           {/* Right Side Actions */}
           <div className="flex items-center space-x-4">
             {/* Theme Toggle */}
-            <motion.button
+            {/* <motion.button
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.9 }}
               onClick={toggleTheme}
@@ -191,7 +191,7 @@ export default function Header({
               ) : (
                 <Moon className="w-5 h-5 text-blue-400" />
               )}
-            </motion.button>
+            </motion.button> */}
 
             {/* Notifications */}
             <motion.button
