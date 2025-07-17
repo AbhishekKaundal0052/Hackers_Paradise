@@ -67,15 +67,7 @@ export default function Layout({
   recentActivity
 }: LayoutProps) {
   const [theme, setTheme] = useState<'light' | 'dark'>('dark')
-  const [isLoading, setIsLoading] = useState(true)
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [_notifications, setNotifications] = useState(3)
-
-  useEffect(() => {
-    // Simulate loading
-    const timer = setTimeout(() => setIsLoading(false), 1000)
-    return () => clearTimeout(timer)
-  }, [])
 
   useEffect(() => {
     // Apply theme to document
@@ -84,33 +76,6 @@ export default function Layout({
 
   const handleThemeChange = (newTheme: 'light' | 'dark') => {
     setTheme(newTheme)
-  }
-
-  // Loading animation
-  if (isLoading) {
-    return (
-      <div className="min-h-screen bg-black flex items-center justify-center">
-        <BackgroundPattern />
-        <motion.div
-          initial={{ opacity: 0, scale: 0.8 }}
-          animate={{ opacity: 1, scale: 1 }}
-          className="text-center"
-        >
-          <motion.div
-            animate={{ rotate: 360 }}
-            transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
-            className="w-16 h-16 border-4 border-primary border-t-transparent rounded-full mx-auto mb-4"
-          />
-          <h2 className="cyber-title text-2xl mb-2">Hacker&apos;s Paradise</h2>
-          <p className="cyber-subtitle">Loading your security journey...</p>
-          <div className="loading-dots mt-4">
-            <div></div>
-            <div></div>
-            <div></div>
-          </div>
-        </motion.div>
-      </div>
-    )
   }
 
   return (
@@ -145,28 +110,9 @@ export default function Layout({
           showSidebar ? 'md:ml-80' : ''
         }`}
       >
-        {/* Page Transition Overlay */}
-        <motion.div
-          className="fixed inset-0 bg-black z-50 pointer-events-none"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 0 }}
-          exit={{ opacity: 1 }}
-          transition={{ duration: 0.3 }}
-        />
-
         {/* Content Container */}
         <div className="min-h-[calc(100vh-4rem)]">
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={typeof window !== 'undefined' ? window.location.pathname : 'default'}
-              initial={{ opacity: 0, x: 20 }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: -20 }}
-              transition={{ duration: 0.3 }}
-            >
-              {children}
-            </motion.div>
-          </AnimatePresence>
+          {children}
         </div>
 
         {/* Footer */}
@@ -188,30 +134,6 @@ export default function Layout({
           />
         )}
       </AnimatePresence>
-
-      {/* Keyboard Navigation Support */}
-      <div className="sr-only">
-        <button 
-          onClick={() => {
-            // Focus management for keyboard navigation
-            const mainContent = document.querySelector('main')
-            if (mainContent) {
-              (mainContent as HTMLElement).focus()
-            }
-          }}
-        >
-          Skip to main content
-        </button>
-      </div>
-
-      {/* Screen Reader Announcements */}
-      <div 
-        aria-live="polite" 
-        aria-atomic="true" 
-        className="sr-only"
-      >
-        {/* Dynamic announcements for screen readers */}
-      </div>
     </div>
   )
 }

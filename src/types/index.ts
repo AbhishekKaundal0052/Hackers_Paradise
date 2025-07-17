@@ -307,4 +307,151 @@ export interface Notification {
     label: string;
     onClick: () => void;
   };
+}
+
+// Dashboard related types
+export interface DashboardMetrics {
+  totalPoints: number;
+  coursesCompleted: number;
+  bountiesWon: number;
+  learningStreak: number;
+  currentLevel: number;
+  experienceToNextLevel: number;
+  totalExperience: number;
+  weeklyProgress: number;
+  monthlyProgress: number;
+  averageScore: number;
+  timeSpent: number; // in minutes
+  certificatesEarned: number;
+}
+
+export interface LearningProgress {
+  courseId: string;
+  courseTitle: string;
+  progress: number; // 0-100
+  completedLessons: number;
+  totalLessons: number;
+  lastAccessed: Date;
+  estimatedCompletion: Date;
+  category: CourseCategory;
+  difficulty: Difficulty;
+}
+
+export interface ActivityItem {
+  id: string;
+  type: 'course_completed' | 'bounty_won' | 'achievement_unlocked' | 'level_up' | 'certificate_earned' | 'streak_milestone';
+  title: string;
+  description: string;
+  timestamp: Date;
+  icon: string;
+  points?: number;
+  metadata?: Record<string, any>;
+}
+
+export interface Achievement {
+  id: string;
+  name: string;
+  description: string;
+  icon: string;
+  color: string;
+  category: 'course' | 'bounty' | 'streak' | 'skill' | 'special';
+  rarity: 'common' | 'rare' | 'epic' | 'legendary';
+  unlockedAt?: Date;
+  progress?: number; // 0-100 for locked achievements
+  requirement?: string;
+  points: number;
+}
+
+export interface SkillLevel {
+  skill: string;
+  level: number; // 1-100
+  category: CourseCategory;
+  experience: number;
+  lastUpdated: Date;
+  trend: 'up' | 'down' | 'stable';
+}
+
+export interface LearningStreak {
+  currentStreak: number;
+  longestStreak: number;
+  lastActivityDate: Date;
+  weeklyData: number[]; // 7 days of activity
+  monthlyData: number[]; // 30 days of activity
+}
+
+export interface UpcomingDeadline {
+  id: string;
+  title: string;
+  type: 'course' | 'bounty' | 'assignment' | 'event';
+  deadline: Date;
+  priority: 'low' | 'medium' | 'high' | 'critical';
+  description?: string;
+  url?: string;
+}
+
+export interface DashboardWidget {
+  id: string;
+  type: 'metrics' | 'progress' | 'activity' | 'achievements' | 'skills' | 'streak' | 'deadlines' | 'chart';
+  title: string;
+  position: { x: number; y: number; w: number; h: number };
+  config?: Record<string, any>;
+  isVisible: boolean;
+  isCollapsed: boolean;
+}
+
+export interface ChartData {
+  labels: string[];
+  datasets: {
+    label: string;
+    data: number[];
+    backgroundColor?: string | string[];
+    borderColor?: string | string[];
+    borderWidth?: number;
+    fill?: boolean;
+  }[];
+}
+
+export interface ProgressRingData {
+  percentage: number;
+  size: number;
+  strokeWidth: number;
+  color: string;
+  label: string;
+  value: string;
+}
+
+export interface BarChartData {
+  labels: string[];
+  data: number[];
+  colors: string[];
+  maxValue: number;
+}
+
+export interface LineChartData {
+  labels: string[];
+  datasets: {
+    label: string;
+    data: number[];
+    color: string;
+    fill?: boolean;
+  }[];
+}
+
+export interface HeatmapData {
+  data: Array<{
+    date: string;
+    value: number;
+    intensity: number; // 0-1
+  }>;
+  maxValue: number;
+  minValue: number;
+}
+
+// Dashboard configuration
+export interface DashboardConfig {
+  layout: DashboardWidget[];
+  theme: 'dark' | 'light' | 'cyber';
+  refreshInterval: number; // in seconds
+  showAnimations: boolean;
+  compactMode: boolean;
 } 
