@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Palette, Moon, Sun, Monitor, Eye, EyeOff, Type, Contrast, Zap, CheckCircle } from 'lucide-react';
+import { Palette, Moon, Sun, Monitor, Eye, Type, CheckCircle } from 'lucide-react';
 import { AppearanceSettings as AppearanceSettingsType } from '@/types/settings';
 import { Input } from '@/components/ui/input';
 import { Select } from '@/components/ui/select';
@@ -56,7 +56,7 @@ const mockAppearanceSettings: AppearanceSettingsType = {
 
 export function AppearanceSettings({ onChanges }: AppearanceSettingsProps) {
   const [settings, setSettings] = useState<AppearanceSettingsType>(mockAppearanceSettings);
-  const [originalSettings, setOriginalSettings] = useState<AppearanceSettingsType>(mockAppearanceSettings);
+  const [originalSettings] = useState<AppearanceSettingsType>(mockAppearanceSettings);
   const [activeTab, setActiveTab] = useState('theme');
 
   useEffect(() => {
@@ -64,7 +64,7 @@ export function AppearanceSettings({ onChanges }: AppearanceSettingsProps) {
     onChanges(hasChanges);
   }, [settings, originalSettings, onChanges]);
 
-  const handleInputChange = (section: keyof AppearanceSettingsType, field: string, value: any) => {
+  const handleInputChange = (section: keyof AppearanceSettingsType, field: string, value: string | boolean) => {
     setSettings(prev => ({
       ...prev,
       [section]: {
@@ -74,17 +74,21 @@ export function AppearanceSettings({ onChanges }: AppearanceSettingsProps) {
     }));
   };
 
-  const handleNestedInputChange = (section: keyof AppearanceSettingsType, subsection: string, field: string, value: any) => {
-    setSettings(prev => ({
-      ...prev,
-      [section]: {
-        ...prev[section],
-        [subsection]: {
-          ...(prev[section] as any)[subsection],
-          [field]: value
+  const handleNestedInputChange = (section: keyof AppearanceSettingsType, subsection: string, field: string, value: string | boolean) => {
+    setSettings(prev => {
+      const currentSection = prev[section] as Record<string, unknown>;
+      const currentSubsection = currentSection[subsection] as Record<string, unknown>;
+      return {
+        ...prev,
+        [section]: {
+          ...currentSection,
+          [subsection]: {
+            ...currentSubsection,
+            [field]: value
+          }
         }
-      }
-    }));
+      };
+    });
   };
 
   const tabs = [

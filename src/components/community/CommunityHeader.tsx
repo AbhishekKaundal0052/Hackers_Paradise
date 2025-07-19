@@ -1,7 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { Users, MessageSquare, TrendingUp, Wifi, Shield } from 'lucide-react';
+import { Users, TrendingUp, Shield } from 'lucide-react';
 import { CommunityStats } from '@/types/community';
 
 interface CommunityHeaderProps {
@@ -74,28 +74,25 @@ export function CommunityHeader({ stats }: CommunityHeaderProps) {
             transition={{ duration: 0.6, delay: 0.8 }}
             className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto"
           >
-            {stats.map((stat, index) => {
-              const Icon = stat.icon;
-              return (
-                <motion.div
-                  key={stat.label}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6, delay: 1 + index * 0.1 }}
-                  className="glass-card-dark p-6 rounded-xl text-center hover:bg-gray-800/50 transition-all duration-300"
-                >
-                  <div className="flex items-center justify-center space-x-2 mb-3">
-                    <Icon className="w-6 h-6 text-red-400" />
-                    <span className="text-2xl font-bold text-white">{stat.value}</span>
-                  </div>
-                  <p className="text-gray-400 text-sm mb-2">{stat.label}</p>
-                  <div className="flex items-center justify-center space-x-1">
-                    <TrendingUp className="w-4 h-4 text-green-400" />
-                    <span className="text-green-400 text-sm font-medium">{stat.trend}</span>
-                  </div>
-                </motion.div>
-              );
-            })}
+            {stats.map((stat, index) => (
+              <motion.div
+                key={stat.label}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 1 + index * 0.1 }}
+                className="glass-card-dark p-6 rounded-xl text-center hover:bg-gray-800/50 transition-all duration-300"
+              >
+                <div className="flex items-center justify-center space-x-2 mb-3">
+                  <span className="text-2xl">{stat.icon}</span>
+                  <span className="text-2xl font-bold text-white">{stat.value}</span>
+                </div>
+                <p className="text-gray-400 text-sm mb-2">{stat.label}</p>
+                <div className="flex items-center justify-center space-x-1">
+                  <TrendingUp className="w-4 h-4 text-green-400" />
+                  <span className="text-green-400 text-sm font-medium">{stat.trend}</span>
+                </div>
+              </motion.div>
+            ))}
           </motion.div>
 
           {/* Security Badge */}

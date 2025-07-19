@@ -1,3 +1,4 @@
+'use client';
 import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Twitter, Linkedin, Facebook, Link, Check } from 'lucide-react';

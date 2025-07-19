@@ -1,7 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { Trophy, BookOpen, DollarSign, Users, TrendingUp, Target, Award, Clock } from 'lucide-react';
+import { Trophy, BookOpen, DollarSign, Users, Award, Clock } from 'lucide-react';
 import { UserStats } from '@/types/profile';
 
 const mockStats: UserStats = {

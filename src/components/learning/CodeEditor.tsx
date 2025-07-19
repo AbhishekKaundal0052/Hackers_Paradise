@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useRef, useEffect } from 'react';
+import { useState } from 'react';
 import dynamic from 'next/dynamic';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -27,26 +27,26 @@ interface CodeEditorProps {
   onSave?: (code: string) => void;
 }
 
-const syntaxHighlighting = {
-  python: {
-    keywords: ['def', 'import', 'from', 'class', 'if', 'else', 'elif', 'for', 'while', 'try', 'except', 'finally', 'with', 'as', 'return', 'True', 'False', 'None'],
-    strings: /"[^"]*"|'[^']*'/g,
-    comments: /#.*$/gm,
-    numbers: /\b\d+\b/g
-  },
-  javascript: {
-    keywords: ['function', 'const', 'let', 'var', 'if', 'else', 'for', 'while', 'try', 'catch', 'finally', 'return', 'class', 'import', 'export', 'default', 'async', 'await'],
-    strings: /"[^"]*"|'[^']*'|`[^`]*`/g,
-    comments: /\/\/.*$|\/\*[\s\S]*?\*\//gm,
-    numbers: /\b\d+\b/g
-  },
-  bash: {
-    keywords: ['if', 'then', 'else', 'fi', 'for', 'while', 'do', 'done', 'case', 'esac', 'function', 'echo', 'exit', 'return'],
-    strings: /"[^"]*"|'[^']*'/g,
-    comments: /#.*$/gm,
-    numbers: /\b\d+\b/g
-  }
-};
+// const syntaxHighlighting = {
+//   python: {
+//     keywords: ['def', 'import', 'from', 'class', 'if', 'else', 'elif', 'for', 'while', 'try', 'except', 'finally', 'with', 'as', 'return', 'True', 'False', 'None'],
+//     strings: /"[^"]*"|'[^']*'/g,
+//     comments: /#.*$/gm,
+//     numbers: /\b\d+\b/g
+//   },
+//   javascript: {
+//     keywords: ['function', 'const', 'let', 'var', 'if', 'else', 'for', 'while', 'try', 'catch', 'finally', 'return', 'class', 'import', 'export', 'default', 'async', 'await'],
+//     strings: /"[^"]*"|'[^']*'|`[^`]*`/g,
+//     comments: /\/\/.*$|\/\*[\s\S]*?\*\//gm,
+//     numbers: /\b\d+\b/g
+//   },
+//   bash: {
+//     keywords: ['if', 'then', 'else', 'fi', 'for', 'while', 'do', 'done', 'case', 'esac', 'function', 'echo', 'exit', 'return'],
+//     strings: /"[^"]*"|'[^']*'/g,
+//     comments: /#.*$/gm,
+//     numbers: /\b\d+\b/g
+//   }
+// };
 
 export default function CodeEditor({ 
   language, 
@@ -61,29 +61,29 @@ export default function CodeEditor({
   const [hasError, setHasError] = useState(false);
   const [copied, setCopied] = useState(false);
 
-  const highlightSyntax = (code: string, lang: string) => {
-    const rules = syntaxHighlighting[lang as keyof typeof syntaxHighlighting];
-    if (!rules) return code;
+  // const highlightSyntax = (code: string, lang: string) => {
+  //   const rules = syntaxHighlighting[lang as keyof typeof syntaxHighlighting];
+  //   if (!rules) return code;
 
-    let highlighted = code;
+  //   let highlighted = code;
 
-    // Highlight keywords
-    rules.keywords.forEach(keyword => {
-      const regex = new RegExp(`\\b${keyword}\\b`, 'g');
-      highlighted = highlighted.replace(regex, `<span class="text-blue-400 font-semibold">${keyword}</span>`);
-    });
+  //   // Highlight keywords
+  //   rules.keywords.forEach(keyword => {
+  //     const regex = new RegExp(`\\b${keyword}\\b`, 'g');
+  //     highlighted = highlighted.replace(regex, `<span class="text-blue-400 font-semibold">${keyword}</span>`);
+  //   });
 
-    // Highlight strings
-    highlighted = highlighted.replace(rules.strings, '<span class="text-green-400">$&</span>');
+  //   // Highlight strings
+  //   highlighted = highlighted.replace(rules.strings, '<span class="text-blue-400">$&</span>');
 
-    // Highlight comments
-    highlighted = highlighted.replace(rules.comments, '<span class="text-gray-500 italic">$&</span>');
+  //   // Highlight comments
+  //   highlighted = highlighted.replace(rules.comments, '<span class="text-gray-500 italic">$&</span>');
 
-    // Highlight numbers
-    highlighted = highlighted.replace(rules.numbers, '<span class="text-yellow-400">$&</span>');
+  //   // Highlight numbers
+  //   highlighted = highlighted.replace(rules.numbers, '<span class="text-yellow-400">$&</span>');
 
-    return highlighted;
-  };
+  //   return highlighted;
+  // };
 
   const handleRun = async () => {
     if (!onRun) {

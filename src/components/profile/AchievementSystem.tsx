@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Trophy, Star, Lock, Share, Search, Filter, Award, Target } from 'lucide-react';
+import { Trophy, Star, Lock, Share, Search, Award, Target } from 'lucide-react';
 import { Achievement } from '@/types/profile';
 
 interface AchievementSystemProps {

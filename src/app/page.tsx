@@ -1,4 +1,4 @@
-import Layout from '@/components/layout/Layout'
+// import Layout from '@/components/layout/Layout'
 import Hero from '@/components/features/Hero'
 import Features from '@/components/features/Features'
 import Statistics from '@/components/features/Statistics'
@@ -8,13 +8,13 @@ import MouseLightEffect from '@/components/features/MouseLightEffect'
 
 export default function HomePage() {
   return (
-    <Layout showSidebar={false}>
+    <>
       <MouseLightEffect />
       <MatrixBackground />
       <Hero />
       <Features />
       <Statistics />
       <Testimonials />
-    </Layout>
+    </>
   )
 }

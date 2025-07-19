@@ -60,7 +60,7 @@ const mockSignup = async (userData: SignUpForm): Promise<User> => {
 
 export const useAuthStore = create<AuthStore>()(
   persist(
-    (set, get) => ({
+    (set) => ({
       // Initial state
       user: null,
       isAuthenticated: false,

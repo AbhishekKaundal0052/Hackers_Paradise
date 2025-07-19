@@ -12,7 +12,7 @@ import { AppearanceSettings } from '@/components/settings/AppearanceSettings';
 interface SettingsSection {
   id: string;
   title: string;
-  icon: any;
+  icon: React.ComponentType<{ className?: string }>;
   description: string;
   subsections: {
     id: string;

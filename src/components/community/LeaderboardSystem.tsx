@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Trophy, TrendingUp, TrendingDown, Minus, Star, Award, Target, BookOpen, Bug, MessageSquare } from 'lucide-react';
+import { Trophy, TrendingUp, TrendingDown, Minus, Award, Target, BookOpen, Bug, MessageSquare } from 'lucide-react';
 import { LeaderboardEntry } from '@/types/community';
 
 const mockLeaderboardData: LeaderboardEntry[] = [

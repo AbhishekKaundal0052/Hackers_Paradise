@@ -137,7 +137,7 @@ export default function DeadlinesCard({ deadlines, className = '' }: DeadlinesCa
               <Clock className="w-12 h-12 text-muted-foreground mx-auto mb-4" />
               <h3 className="text-lg font-medium text-white mb-2">No Deadlines</h3>
               <p className="text-muted-foreground">
-                You're all caught up! No upcoming deadlines.
+                You&apos;re all caught up! No upcoming deadlines.
               </p>
             </motion.div>
           )}

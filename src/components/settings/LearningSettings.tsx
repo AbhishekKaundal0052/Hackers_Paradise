@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { BookOpen, Target, Clock, Calendar, BarChart3, Play, Pause, Settings, CheckCircle, AlertTriangle } from 'lucide-react';
+import { Target, Calendar, BarChart3, Settings, CheckCircle } from 'lucide-react';
 import { LearningSettings as LearningSettingsType } from '@/types/settings';
 import { Input } from '@/components/ui/input';
 import { Select } from '@/components/ui/select';
@@ -51,7 +51,7 @@ const mockLearningSettings: LearningSettingsType = {
 
 export function LearningSettings({ onChanges }: LearningSettingsProps) {
   const [settings, setSettings] = useState<LearningSettingsType>(mockLearningSettings);
-  const [originalSettings, setOriginalSettings] = useState<LearningSettingsType>(mockLearningSettings);
+  const [originalSettings] = useState<LearningSettingsType>(mockLearningSettings);
   const [activeTab, setActiveTab] = useState('preferences');
 
   useEffect(() => {
@@ -59,7 +59,7 @@ export function LearningSettings({ onChanges }: LearningSettingsProps) {
     onChanges(hasChanges);
   }, [settings, originalSettings, onChanges]);
 
-  const handleInputChange = (section: keyof LearningSettingsType, field: string, value: any) => {
+  const handleInputChange = (section: keyof LearningSettingsType, field: string, value: string | number | string[] | boolean) => {
     setSettings(prev => ({
       ...prev,
       [section]: {
@@ -69,18 +69,22 @@ export function LearningSettings({ onChanges }: LearningSettingsProps) {
     }));
   };
 
-  const handleNestedInputChange = (section: keyof LearningSettingsType, subsection: string, field: string, value: any) => {
-    setSettings(prev => ({
-      ...prev,
-      [section]: {
-        ...prev[section],
-        [subsection]: {
-          ...(prev[section] as any)[subsection],
-          [field]: value
-        }
-      }
-    }));
-  };
+  // const handleNestedInputChange = (section: keyof LearningSettingsType, subsection: string, field: string, value: string | number | boolean) => {
+  //   setSettings(prev => {
+  //     const currentSection = prev[section] as Record<string, unknown>;
+  //     const currentSubsection = currentSection[subsection] as Record<string, unknown>;
+  //     return {
+  //       ...prev,
+  //       [section]: {
+  //         ...currentSection,
+  //         [subsection]: {
+  //           ...currentSubsection,
+  //           [field]: value
+  //         }
+  //       }
+  //     };
+  //   });
+  // };
 
   const tabs = [
     { id: 'preferences', label: 'Preferences', icon: Settings },
@@ -266,7 +270,7 @@ export function LearningSettings({ onChanges }: LearningSettingsProps) {
       {/* Programming Languages */}
       <div className="glass-card-dark p-6 rounded-xl">
         <h3 className="text-lg font-semibold text-white mb-4">Preferred Programming Languages</h3>
-        <p className="text-gray-400 mb-4">Select languages you're comfortable with or want to learn</p>
+        <p className="text-gray-400 mb-4">Select languages you&apos;re comfortable with or want to learn</p>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
           {programmingLanguages.map((lang) => (
             <label
@@ -547,7 +551,7 @@ export function LearningSettings({ onChanges }: LearningSettingsProps) {
         <div className="glass-card-dark p-6 rounded-xl border border-blue-500/20">
           <h3 className="text-lg font-semibold text-white mb-4">Schedule Preview</h3>
           <div className="space-y-2">
-            {settings.schedule.timeSlots.map((slot: any, index: number) => (
+            {settings.schedule.timeSlots.map((slot: { day: string; time: string; duration: number }, index: number) => (
               <div key={index} className="flex items-center justify-between p-3 bg-gray-800/30 rounded-lg">
                 <div className="flex items-center space-x-3">
                   <Calendar className="w-4 h-4 text-blue-400" />
@@ -570,22 +574,25 @@ export function LearningSettings({ onChanges }: LearningSettingsProps) {
       <div className="glass-card-dark p-6 rounded-xl">
         <h3 className="text-lg font-semibold text-white mb-4">Progress Settings</h3>
         <div className="space-y-4">
-          {Object.entries(settings.progress).map(([key, value]: [string, any]) => (
-            <label key={key} className="flex items-center justify-between p-3 bg-gray-800/30 rounded-lg cursor-pointer hover:bg-gray-800/50 transition-colors">
-              <div className="flex items-center space-x-3">
-                <input
-                  type="checkbox"
-                  checked={value as boolean}
-                  onChange={(e) => handleInputChange('progress', key, e.target.checked)}
-                  className="text-red-500 focus:ring-red-500"
-                />
-                <span className="text-white capitalize">
-                  {key.replace(/([A-Z])/g, ' $1').replace(/^./, (str: string) => str.toUpperCase())}
-                </span>
-              </div>
-              {value && <CheckCircle className="w-4 h-4 text-green-400" />}
-            </label>
-          ))}
+          {Object.entries(settings.progress).map(([key, value]) => {
+            if (typeof value === 'object' && value !== null) return null;
+            return (
+              <label key={key} className="flex items-center justify-between p-3 bg-gray-800/30 rounded-lg cursor-pointer hover:bg-gray-800/50 transition-colors">
+                <div className="flex items-center space-x-3">
+                  <input
+                    type="checkbox"
+                    checked={value as boolean}
+                    onChange={(e) => handleInputChange('progress', key, e.target.checked)}
+                    className="text-red-500 focus:ring-red-500"
+                  />
+                  <span className="text-white capitalize">
+                    {key.replace(/([A-Z])/g, ' $1').replace(/^./, (str: string) => str.toUpperCase())}
+                  </span>
+                </div>
+                {value && <CheckCircle className="w-4 h-4 text-green-400" />}
+              </label>
+            );
+          })}
         </div>
       </div>
 

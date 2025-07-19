@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Search, Filter, MessageSquare, Users, Clock, TrendingUp, Shield, Bug, Code, Lock, Globe, Target, BookOpen, Tool } from 'lucide-react';
+import { Search, MessageSquare, Users, Clock } from 'lucide-react';
 import { ForumCategory } from '@/types/community';
 
 const forumCategories: ForumCategory[] = [

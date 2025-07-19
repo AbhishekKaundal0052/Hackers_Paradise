@@ -1,6 +1,7 @@
+'use client';
 import React from 'react';
 import { Card, CardContent } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
+// import { Badge } from '@/components/ui/badge';
 import { CheckCircle, AlertCircle, Info } from 'lucide-react';
 
 interface SEOPreviewProps {
@@ -126,7 +127,7 @@ export const SEOPreview: React.FC<SEOPreviewProps> = ({ title, excerpt, content 
           <CardContent className="p-6">
             <h4 className="text-lg font-semibold text-white mb-4 flex items-center gap-2">
               <CheckCircle className="w-5 h-5 text-green-400" />
-              What's Working
+              What&apos;s Working
             </h4>
             <ul className="space-y-2">
               {suggestions.map((suggestion, index) => (

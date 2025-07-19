@@ -1,3 +1,4 @@
+'use client';
 import React from 'react';
 
 interface BlogSearchProps {
@@ -32,7 +33,7 @@ export const BlogSearch: React.FC<BlogSearchProps> = ({
         title="Sort By"
         className="rounded bg-slate-900 text-white p-2 border border-slate-700"
         value={sortBy}
-        onChange={e => onSortChange(e.target.value as any)}
+        onChange={e => onSortChange(e.target.value as 'newest' | 'popular' | 'trending')}
       >
         <option value="newest">Newest</option>
         <option value="popular">Most Popular</option>

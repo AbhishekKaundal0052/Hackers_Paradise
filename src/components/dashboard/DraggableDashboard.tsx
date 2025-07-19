@@ -118,7 +118,7 @@ export default function DraggableDashboard({
 
     const newWidget: DashboardWidget = {
       id: `${widgetType}_${Date.now()}`,
-      type: widgetTemplate.type as any,
+      type: widgetTemplate.type as 'metrics' | 'progress' | 'activity' | 'chart' | 'achievements' | 'deadlines',
       title: widgetTemplate.title,
       position: { x: 0, y: widgets.length, w: 6, h: 2 },
       isVisible: true,
@@ -130,7 +130,6 @@ export default function DraggableDashboard({
   }, [widgets, onWidgetsChange]);
 
   const restoreAllWidgets = useCallback(() => {
-    const hiddenWidgets = widgets.filter(w => !w.isVisible);
     const updatedWidgets = widgets.map(widget => ({
       ...widget,
       isVisible: true
@@ -193,7 +192,6 @@ export default function DraggableDashboard({
   }, [onWidgetsChange]);
 
   const visibleWidgets = widgets.filter(widget => widget.isVisible);
-  const hiddenWidgets = widgets.filter(widget => !widget.isVisible);
 
   const renderWidgetContent = (widget: DashboardWidget) => {
     switch (widget.type) {
@@ -303,7 +301,7 @@ export default function DraggableDashboard({
       <div className="flex items-center justify-between">
         <h2 className="text-2xl font-bold text-white">Customizable Dashboard</h2>
         <div className="flex items-center space-x-2">
-          {hiddenWidgets.length > 0 && (
+          {widgets.filter(w => !w.isVisible).length > 0 && (
             <Button
               size="sm"
               variant="outline"
@@ -311,7 +309,7 @@ export default function DraggableDashboard({
               className="cyber-button-secondary"
             >
               <Eye className="w-4 h-4 mr-2" />
-              Restore All ({hiddenWidgets.length})
+              Restore All ({widgets.filter(w => !w.isVisible).length})
             </Button>
           )}
           <Button
@@ -480,7 +478,7 @@ export default function DraggableDashboard({
               <Plus className="w-4 h-4 mr-2" />
               Add Widgets
             </Button>
-            {hiddenWidgets.length > 0 && (
+            {widgets.filter(w => !w.isVisible).length > 0 && (
               <Button 
                 onClick={restoreAllWidgets}
                 className="cyber-button-secondary"

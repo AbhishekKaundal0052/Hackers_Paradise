@@ -34,7 +34,7 @@ export const AuthInput = forwardRef<HTMLInputElement, AuthInputProps>(
             </div>
           )}
           
-          <motion.input
+          <input
             ref={ref}
             type={inputType}
             className={`

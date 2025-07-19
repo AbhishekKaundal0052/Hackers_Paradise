@@ -17,7 +17,9 @@ export default function ForgotPasswordPage() {
           <Shield size={24} className="text-white" />
         </div>
         <h1 className="text-2xl font-bold text-white">Forgot Password?</h1>
-        <p className="text-gray-400">Enter your email address and we\'ll send you a link to reset your password.</p>
+        <p className="text-gray-400 text-sm mt-4">
+          Enter your email and we&apos;ll send you a link to reset your password.
+        </p>
       </div>
       <form className="space-y-4 mt-8">
         <AuthInput

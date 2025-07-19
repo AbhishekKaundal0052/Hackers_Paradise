@@ -77,8 +77,8 @@ export interface Achievement {
   name: string;
   description: string;
   icon: string;
-  rarity: 'common' | 'uncommon' | 'rare' | 'legendary';
-  unlockedAt: Date;
+  rarity: 'common' | 'uncommon' | 'rare' | 'epic' | 'legendary';
+  unlockedAt?: Date;
   progress?: {
     current: number;
     total: number;
@@ -90,7 +90,7 @@ export interface ActivityItem {
   type: 'course_completed' | 'bounty_won' | 'post_created' | 'achievement_unlocked';
   timestamp: Date;
   content: string;
-  metadata: any;
+  metadata: Record<string, unknown>;
   reactions: {
     likes: number;
     comments: number;

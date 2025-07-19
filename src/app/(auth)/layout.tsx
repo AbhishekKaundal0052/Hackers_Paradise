@@ -25,7 +25,7 @@ export default function AuthLayout({ children }: AuthLayoutProps) {
             <div className="text-center space-y-8">
               <div className="space-y-4">
                 <h1 className="text-4xl lg:text-6xl font-bold bg-gradient-to-r from-red-500 to-purple-500 bg-clip-text text-transparent">
-                  Hacker's Paradise
+                  Hacker&apos;s Paradise
                 </h1>
                 <p className="text-xl text-gray-300 max-w-md mx-auto">
                   Master cybersecurity through hands-on learning, real-world challenges, and expert guidance

@@ -2,8 +2,8 @@
 
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Search, Filter, Users, Star, MapPin, Building, Clock, Shield, Trophy, Code, Bug, Lock } from 'lucide-react';
-import { CommunityMember, Badge } from '@/types/community';
+import { Search, Users, Star, MapPin, Building, Clock } from 'lucide-react';
+import { CommunityMember } from '@/types/community';
 
 const mockMembers: CommunityMember[] = [
   {

@@ -2,7 +2,7 @@
 
 import { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { MessageSquare, X, Send, Smile, Shield, Bug, Lock, Code, Zap } from 'lucide-react';
+import { X, Send, Smile } from 'lucide-react';
 import { ChatMessage } from '@/types/community';
 
 interface LiveChatProps {

@@ -11,7 +11,7 @@ interface PasswordStrengthMeterProps {
 export function PasswordStrengthMeter({ password, className = '' }: PasswordStrengthMeterProps) {
   const calculateStrength = (password: string) => {
     let score = 0;
-    let feedback: string[] = [];
+    const feedback: string[] = [];
 
     if (password.length >= 8) score += 1;
     else feedback.push('At least 8 characters');

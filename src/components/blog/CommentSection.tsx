@@ -1,5 +1,6 @@
+'use client';
 import React, { useState } from 'react';
-import { Comment, User } from '@/types';
+import { Comment } from '@/types';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
@@ -10,7 +11,7 @@ interface CommentSectionProps {
   postId: string;
 }
 
-export const CommentSection: React.FC<CommentSectionProps> = ({ comments, postId }) => {
+export const CommentSection: React.FC<CommentSectionProps> = ({ comments }) => {
   const [newComment, setNewComment] = useState('');
   const [replyingTo, setReplyingTo] = useState<string | null>(null);
   const [replyText, setReplyText] = useState('');

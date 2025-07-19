@@ -1,6 +1,7 @@
+'use client';
 import React from 'react';
 import { Card, CardContent } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
+// import { Badge } from '@/components/ui/badge';
 import { Clock } from 'lucide-react';
 import Link from 'next/link';
 

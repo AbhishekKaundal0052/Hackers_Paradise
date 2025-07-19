@@ -41,7 +41,7 @@ export default function CertificatePreviewModal({ open, onClose, userName, cours
                 <p className="text-gray-600 mb-4">has successfully completed the course</p>
                 <div className="text-xl font-semibold text-red-600 mb-4">{courseName}</div>
                 <div className="flex items-center justify-center space-x-2 mt-6">
-                  <span className="text-sm text-gray-500">Hacker's Paradise</span>
+                  <span className="text-sm text-gray-500">Hacker&apos;s Paradise</span>
                   <span className="text-xs text-gray-400">|</span>
                   <span className="text-sm text-gray-500">{new Date().toLocaleDateString()}</span>
                 </div>

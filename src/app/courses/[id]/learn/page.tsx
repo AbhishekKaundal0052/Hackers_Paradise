@@ -14,16 +14,12 @@ import {
   Pause, 
   Volume2, 
   Maximize, 
-  BookOpen,
   Code,
   FileText,
-  CheckCircle,
-  Lock,
   ChevronLeft,
   ChevronRight,
   Save,
   Download,
-  Share2,
   Timer,
   Terminal,
   Target
@@ -128,12 +124,12 @@ print(f"Found {len(open_ports)} open ports")`
 export default function LearningModulePage() {
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
-  const [duration, setDuration] = useState(mockLesson.duration);
+  const [duration] = useState(mockLesson.duration);
   const [activeTab, setActiveTab] = useState('content');
   const [notes, setNotes] = useState('');
   const [showNotes, setShowNotes] = useState(true);
   const [progress, setProgress] = useState(0);
-  const [isCompleted, setIsCompleted] = useState(false);
+  // const [isCompleted, setIsCompleted] = useState(false);
 
   useEffect(() => {
     // Simulate video progress

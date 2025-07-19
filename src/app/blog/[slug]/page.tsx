@@ -1,25 +1,13 @@
-'use client';
-
-import React, { useState, useEffect } from 'react';
-import Layout from '@/components/layout/Layout';
-import { BlogPost, User, Comment } from '@/types';
+import React from 'react';
+// import Layout from '@/components/layout/Layout';
+import { BlogPost, UserRole, BlogCategory } from '@/types';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { Button } from '@/components/ui/button';
 import { TableOfContents } from '@/components/blog/TableOfContents';
 import { SocialShare } from '@/components/blog/SocialShare';
 import { CommentSection } from '@/components/blog/CommentSection';
 import { RelatedPosts } from '@/components/blog/RelatedPosts';
-import { 
-  Clock, 
-  Eye, 
-  Heart, 
-  MessageCircle, 
-  Share2,
-  BookOpen,
-  Calendar,
-  User as UserIcon
-} from 'lucide-react';
+import { Eye, Heart, MessageCircle, BookOpen } from 'lucide-react';
 
 // Mock blog post data
 const mockBlogPost: BlogPost = {
@@ -133,7 +121,7 @@ Remember: Always obtain proper authorization before testing any application for 
     username: 'cyberhunter',
     email: 'hunter@example.com',
     avatar: '/api/placeholder/60/60',
-    role: 'hunter',
+    role: UserRole.HUNTER,
     level: 15,
     experience: 5000,
     badges: [],
@@ -142,7 +130,7 @@ Remember: Always obtain proper authorization before testing any application for 
   },
   coverImage: '/api/placeholder/1200/600',
   tags: ['SQL Injection', 'Penetration Testing', 'Web Security', 'Database'],
-  category: 'tutorial',
+  category: BlogCategory.TUTORIAL,
   publishedAt: new Date('2024-01-15'),
   updatedAt: new Date('2024-01-15'),
   readTime: 12,
@@ -157,7 +145,7 @@ Remember: Always obtain proper authorization before testing any application for 
         username: 'securitylearner',
         email: 'learner@example.com',
         avatar: '/api/placeholder/40/40',
-        role: 'student',
+        role: UserRole.STUDENT,
         level: 5,
         experience: 1000,
         badges: [],
@@ -169,8 +157,7 @@ Remember: Always obtain proper authorization before testing any application for 
       updatedAt: new Date('2024-01-16'),
       replies: []
     }
-  ],
-  featured: true
+  ]
 };
 
 const relatedPosts = [
@@ -196,10 +183,8 @@ const relatedPosts = [
   }
 ];
 
-export default function BlogPostPage({ params }: { params: { slug: string } }) {
-  const [post, setPost] = useState<BlogPost>(mockBlogPost);
-  const [isLiked, setIsLiked] = useState(false);
-  const [showTOC, setShowTOC] = useState(false);
+export default async function BlogPostPage() {
+  const post = mockBlogPost; // In a real app, you'd fetch based on slug
 
   // Extract headings for table of contents
   const headings = post.content
@@ -211,157 +196,99 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
       id: line.replace(/^#+\s*/, '').toLowerCase().replace(/[^a-z0-9]+/g, '-')
     }));
 
-  const handleLike = () => {
-    setIsLiked(!isLiked);
-    setPost(prev => ({
-      ...prev,
-      likes: isLiked ? prev.likes - 1 : prev.likes + 1
-    }));
-  };
-
   return (
-    <Layout>
-      <div className="container mx-auto px-4 py-8">
-        <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
-          {/* Main Content */}
-          <div className="lg:col-span-3">
-            {/* Article Header */}
-            <Card className="bg-slate-800/80 border-slate-700 mb-8">
-              <CardContent className="p-8">
-                <div className="flex items-center gap-2 mb-4">
-                  <Badge className="bg-purple-700 text-white">Featured</Badge>
-                  <Badge className="bg-blue-700 text-white">{post.category.replace(/_/g, ' ')}</Badge>
-                  <Badge className="bg-green-700 text-white">{post.readTime} min read</Badge>
-                </div>
-                
-                <h1 className="text-4xl font-bold text-white mb-4">{post.title}</h1>
-                <p className="text-xl text-gray-300 mb-6">{post.excerpt}</p>
-                
-                {/* Author Info */}
-                <div className="flex items-center gap-4 mb-6">
-                  <img 
-                    src={post.author.avatar || '/public/avatar.svg'} 
-                    alt={post.author.username} 
-                    className="w-12 h-12 rounded-full bg-white object-cover" 
-                  />
-                  <div>
-                    <div className="text-white font-semibold">{post.author.username}</div>
-                    <div className="text-sm text-gray-400">Level {post.author.level} • {post.author.experience} XP</div>
-                  </div>
-                </div>
+    <div className="container mx-auto px-4 py-8">
+      {/* Header */}
+      <div className="mb-8">
+        <div className="flex items-center space-x-2 text-sm text-muted-foreground mb-4">
+          <span>Blog</span>
+          <span>•</span>
+          <span>{post.category}</span>
+          <span>•</span>
+          <span>{post.publishedAt.toLocaleDateString()}</span>
+        </div>
+        
+        <h1 className="cyber-title text-4xl mb-4">{post.title}</h1>
+        <p className="cyber-subtitle text-xl mb-6">{post.excerpt}</p>
+        
+        {/* Author Info */}
+        <div className="flex items-center space-x-4 mb-6">
+          <div className="w-12 h-12 rounded-full bg-gradient-to-r from-red-500 to-purple-600" />
+          <div>
+            <div className="font-medium text-white">{post.author.username}</div>
+            <div className="text-sm text-muted-foreground">
+              {post.publishedAt.toLocaleDateString()} • {post.readTime} min read
+            </div>
+          </div>
+        </div>
 
-                {/* Stats */}
-                <div className="flex items-center gap-6 text-sm text-gray-400">
-                  <span className="flex items-center gap-1">
-                    <Calendar className="w-4 h-4" />
-                    {new Date(post.publishedAt).toLocaleDateString()}
-                  </span>
-                  <span className="flex items-center gap-1">
-                    <Eye className="w-4 h-4" />
-                    {post.views.toLocaleString()} views
-                  </span>
-                  <span className="flex items-center gap-1">
-                    <Heart className="w-4 h-4" />
-                    {post.likes.toLocaleString()} likes
-                  </span>
-                  <span className="flex items-center gap-1">
-                    <MessageCircle className="w-4 h-4" />
-                    {post.comments.length} comments
-                  </span>
-                </div>
-              </CardContent>
-            </Card>
+        {/* Interactive Stats */}
+        <div className="flex items-center space-x-6 text-sm text-muted-foreground">
+          <div className="flex items-center space-x-1">
+            <Eye className="w-4 h-4" />
+            <span>{post.views.toLocaleString()}</span>
+          </div>
+          <div className="flex items-center space-x-1">
+            <Heart className="w-4 h-4" />
+            <span>{post.likes}</span>
+          </div>
+          <div className="flex items-center space-x-1">
+            <MessageCircle className="w-4 h-4" />
+            <span>{post.comments.length}</span>
+          </div>
+        </div>
+      </div>
 
-            {/* Article Content */}
-            <Card className="bg-slate-800/80 border-slate-700 mb-8">
-              <CardContent className="p-8">
-                <div className="prose prose-invert max-w-none">
-                  <div 
-                    className="markdown-content"
-                    dangerouslySetInnerHTML={{ 
-                      __html: post.content
-                        .replace(/^# (.*$)/gim, '<h1 id="$1">$1</h1>')
-                        .replace(/^## (.*$)/gim, '<h2 id="$1">$1</h2>')
-                        .replace(/^### (.*$)/gim, '<h3 id="$1">$1</h3>')
-                        .replace(/^#### (.*$)/gim, '<h4 id="$1">$1</h4>')
-                        .replace(/^##### (.*$)/gim, '<h5 id="$1">$1</h5>')
-                        .replace(/^###### (.*$)/gim, '<h6 id="$1">$1</h6>')
-                        .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
-                        .replace(/\*(.*?)\*/g, '<em>$1</em>')
-                        .replace(/`(.*?)`/g, '<code class="bg-slate-700 px-1 py-0.5 rounded">$1</code>')
-                        .replace(/```(\w+)?\n([\s\S]*?)```/g, '<pre class="bg-slate-900 p-4 rounded overflow-x-auto"><code class="language-$1">$2</code></pre>')
-                        .replace(/\n/g, '<br>')
-                    }} 
-                  />
-                </div>
-              </CardContent>
-            </Card>
+      {/* Content */}
+      <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
+        {/* Main Content */}
+        <div className="lg:col-span-3">
+          <Card className="cyber-card">
+            <CardContent className="p-8">
+              {/* Cover Image */}
+              <div className="aspect-video bg-gradient-to-br from-red-500/20 to-purple-500/20 rounded-lg mb-8 flex items-center justify-center">
+                <BookOpen className="w-16 h-16 text-white/50" />
+              </div>
 
-            {/* Social Actions */}
-            <Card className="bg-slate-800/80 border-slate-700 mb-8">
-              <CardContent className="p-6">
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-4">
-                    <Button 
-                      onClick={handleLike}
-                      variant={isLiked ? "default" : "outline"}
-                      className="flex items-center gap-2"
-                    >
-                      <Heart className={`w-4 h-4 ${isLiked ? 'fill-current' : ''}`} />
-                      {post.likes}
-                    </Button>
-                    <Button variant="outline" className="flex items-center gap-2">
-                      <Share2 className="w-4 h-4" />
-                      Share
-                    </Button>
-                  </div>
-                  <SocialShare 
-                    title={post.title}
-                    url={typeof window !== 'undefined' ? window.location.href : ''}
-                  />
-                </div>
-              </CardContent>
-            </Card>
+              {/* Tags */}
+              <div className="flex flex-wrap gap-2 mb-8">
+                {post.tags.map((tag) => (
+                  <Badge key={tag} variant="secondary">
+                    {tag}
+                  </Badge>
+                ))}
+              </div>
 
-            {/* Comments */}
+              {/* Content */}
+              <div className="prose prose-invert max-w-none">
+                <div dangerouslySetInnerHTML={{ __html: post.content }} />
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Comments */}
+          <div className="mt-8">
             <CommentSection comments={post.comments} postId={post.id} />
           </div>
+        </div>
 
-          {/* Sidebar */}
-          <div className="lg:col-span-1 space-y-6">
+        {/* Sidebar */}
+        <div className="lg:col-span-1">
+          <div className="sticky top-8 space-y-6">
             {/* Table of Contents */}
             <TableOfContents headings={headings} />
-
-            {/* Author Bio */}
-            <Card className="bg-slate-800/80 border-slate-700">
-              <CardContent className="p-6">
-                <h3 className="text-lg font-semibold text-white mb-4">About the Author</h3>
-                <div className="flex items-center gap-3 mb-4">
-                  <img 
-                    src={post.author.avatar || '/public/avatar.svg'} 
-                    alt={post.author.username} 
-                    className="w-16 h-16 rounded-full bg-white object-cover" 
-                  />
-                  <div>
-                    <div className="text-white font-semibold">{post.author.username}</div>
-                    <div className="text-sm text-gray-400">Security Researcher</div>
-                    <div className="text-xs text-gray-500">Level {post.author.level}</div>
-                  </div>
-                </div>
-                <p className="text-sm text-gray-300 mb-4">
-                  Expert in web application security with over 5 years of experience in penetration testing and vulnerability research.
-                </p>
-                <Button variant="outline" size="sm" className="w-full">
-                  View Profile
-                </Button>
-              </CardContent>
-            </Card>
-
+            
+            {/* Social Share */}
+            <SocialShare 
+              title={post.title}
+              url={typeof window !== 'undefined' ? window.location.href : ''}
+            />
+            
             {/* Related Posts */}
             <RelatedPosts posts={relatedPosts} />
           </div>
         </div>
       </div>
-    </Layout>
+    </div>
   );
 } 
