@@ -37,14 +37,14 @@ export function ProfileHeader() {
     return `${Math.floor(diffInDays / 365)} years ago`;
   };
 
-  const formatLastActive = (date: Date) => {
-    const now = new Date();
-    const diffInHours = Math.floor((now.getTime() - date.getTime()) / (1000 * 60 * 60));
+  // const formatLastActive = (date: Date) => {
+  //   const now = new Date();
+  //   const diffInHours = Math.floor((now.getTime() - date.getTime()) / (1000 * 60 * 60));
     
-    if (diffInHours < 1) return 'Just now';
-    if (diffInHours < 24) return `${diffInHours}h ago`;
-    return `${Math.floor(diffInHours / 24)}d ago`;
-  };
+  //   if (diffInHours < 1) return 'Just now';
+  //   if (diffInHours < 24) return `${diffInHours}h ago`;
+  //   return `${Math.floor(diffInHours / 24)}d ago`;
+  // };
 
   return (
     <div className="relative">

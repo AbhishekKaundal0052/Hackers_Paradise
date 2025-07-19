@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Search, Filter, Star, Clock, MapPin, Calendar, MessageSquare, Video, Code, Users, UserCheck, Award } from 'lucide-react';
+import { Search, Star, Clock, MapPin, Users, UserCheck, Code } from 'lucide-react';
 import { MentorProfile } from '@/types/community';
 
 const mockMentors: MentorProfile[] = [

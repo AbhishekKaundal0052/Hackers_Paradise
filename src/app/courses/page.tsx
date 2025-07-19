@@ -2,18 +2,18 @@
 
 import { useState, useEffect, useMemo } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Search, BookOpen, Clock, Star, Users, Zap, Grid3X3, List, Play, Lock, CheckCircle, TrendingUp, Share2, Download, Heart, Target, Code } from 'lucide-react'
+import { Search, BookOpen, Clock, Star, Users, Zap, Grid3X3, List, Play, Lock, Heart, Target, Code, Share2 } from 'lucide-react'
 import Layout from '@/components/layout/Layout'
 import { Badge } from '@/components/ui/badge'
 import {
-   formatDuration, formatCurrency
+   formatDuration
 } from '@/lib/utils'
 import { CourseCategory, Difficulty, Course, UserRole } from '@/types'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { Card, CardContent } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Select } from '@/components/ui/select'
-import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip'
+// import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip'
 import { Skeleton } from '@/components/ui/skeleton'
 
 // Mock data for courses
@@ -327,8 +327,8 @@ const userEnrollments = {
   '5': { progress: 20, lastAccessed: new Date(Date.now() - 1000 * 60 * 60 * 24 * 5) }
 }
 
-const categories = Object.values(CourseCategory)
-const difficulties = Object.values(Difficulty)
+// const categories = Object.values(CourseCategory)
+// const difficulties = Object.values(Difficulty)
 
 export default function CoursesPage() {
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid')
@@ -870,7 +870,7 @@ export default function CoursesPage() {
             <BookOpen className="w-16 h-16 text-muted-foreground mx-auto mb-4" />
             <h3 className="text-lg font-medium text-white mb-2">No courses found</h3>
             <p className="text-muted-foreground mb-4">
-              Try adjusting your search or filters to find what you're looking for.
+              Try adjusting your search or filters to find what you&apos;re looking for.
             </p>
             <Button
               onClick={() => {

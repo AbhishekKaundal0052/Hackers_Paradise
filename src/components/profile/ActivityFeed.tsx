@@ -5,6 +5,28 @@ import { motion } from 'framer-motion';
 import { BookOpen, DollarSign, MessageSquare, Trophy, Heart, MessageCircle, Clock, Filter } from 'lucide-react';
 import { ActivityItem } from '@/types/profile';
 
+// Type definitions for activity metadata
+interface CourseCompletedMetadata {
+  score: number;
+  duration: string;
+}
+
+interface BountyWonMetadata {
+  bountyAmount: number;
+  vulnerability: string;
+  platform: string;
+}
+
+interface PostCreatedMetadata {
+  views: number;
+  forum: string;
+}
+
+interface AchievementUnlockedMetadata {
+  rarity: string;
+  description: string;
+}
+
 const mockActivities: ActivityItem[] = [
   {
     id: '1',
@@ -131,8 +153,8 @@ export function ActivityFeed() {
           <div className="space-y-2">
             <p className="text-white">{activity.content}</p>
             <div className="flex items-center space-x-4 text-sm text-gray-400">
-              <span>Score: {activity.metadata.score}%</span>
-              <span>Duration: {activity.metadata.duration}</span>
+              <span>Score: {(activity.metadata as unknown as CourseCompletedMetadata).score}%</span>
+              <span>Duration: {(activity.metadata as unknown as CourseCompletedMetadata).duration}</span>
             </div>
           </div>
         );
@@ -142,8 +164,8 @@ export function ActivityFeed() {
           <div className="space-y-2">
             <p className="text-white">{activity.content}</p>
             <div className="flex items-center space-x-4 text-sm text-gray-400">
-              <span className="text-green-400 font-medium">${activity.metadata.bountyAmount}</span>
-              <span>{activity.metadata.vulnerability} on {activity.metadata.platform}</span>
+              <span className="text-green-400 font-medium">${(activity.metadata as unknown as BountyWonMetadata).bountyAmount}</span>
+              <span>{(activity.metadata as unknown as BountyWonMetadata).vulnerability} on {(activity.metadata as unknown as BountyWonMetadata).platform}</span>
             </div>
           </div>
         );
@@ -153,8 +175,8 @@ export function ActivityFeed() {
           <div className="space-y-2">
             <p className="text-white">{activity.content}</p>
             <div className="flex items-center space-x-4 text-sm text-gray-400">
-              <span>{activity.metadata.views} views</span>
-              <span>in {activity.metadata.forum}</span>
+              <span>{(activity.metadata as unknown as PostCreatedMetadata).views} views</span>
+              <span>in {(activity.metadata as unknown as PostCreatedMetadata).forum}</span>
             </div>
           </div>
         );
@@ -165,9 +187,9 @@ export function ActivityFeed() {
             <p className="text-white">{activity.content}</p>
             <div className="flex items-center space-x-2 text-sm">
               <span className={`px-2 py-1 rounded-full text-xs ${activityBgColors[activity.type]} ${activityColors[activity.type]}`}>
-                {activity.metadata.rarity}
+                {(activity.metadata as unknown as AchievementUnlockedMetadata).rarity}
               </span>
-              <span className="text-gray-400">{activity.metadata.description}</span>
+              <span className="text-gray-400">{(activity.metadata as unknown as AchievementUnlockedMetadata).description}</span>
             </div>
           </div>
         );

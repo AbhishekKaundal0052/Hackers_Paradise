@@ -66,17 +66,17 @@ export default function Layout({
   stats,
   recentActivity
 }: LayoutProps) {
-  const [theme, setTheme] = useState<'light' | 'dark'>('dark')
-  const [_notifications, setNotifications] = useState(3)
+  const [theme] = useState<'light' | 'dark'>('dark')
+  const [_notifications] = useState(3)
 
   useEffect(() => {
     // Apply theme to document
     document.documentElement.classList.toggle('dark', theme === 'dark')
   }, [theme])
 
-  const handleThemeChange = (newTheme: 'light' | 'dark') => {
-    setTheme(newTheme)
-  }
+  // const handleThemeChange = (newTheme: 'light' | 'dark') => {
+  //   setTheme(newTheme)
+  // }
 
   return (
     <div className={`min-h-screen ${theme === 'dark' ? 'dark' : ''}`}>
@@ -86,8 +86,6 @@ export default function Layout({
       <Header 
         user={user}
         notifications={_notifications}
-        theme={theme}
-        onThemeChange={handleThemeChange}
       />
 
       {/* Sidebar */}

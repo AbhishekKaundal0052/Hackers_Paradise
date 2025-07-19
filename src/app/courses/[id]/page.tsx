@@ -12,18 +12,14 @@ import {
   Clock, 
   Users, 
   Star, 
-  BookOpen, 
   Target, 
   Award, 
-  CheckCircle,
   Heart,
   Share2,
-  Bookmark,
   Lock,
   Video,
-  Code2,
-  TestTube,
-  Download
+  Download,
+  CheckCircle
 } from 'lucide-react';
 import { Course, CourseCategory, Difficulty, UserRole } from '@/types';
 import CertificatePreviewModal from '@/components/learning/CertificatePreviewModal';
@@ -82,7 +78,7 @@ const mockCourse: Course = {
 
 export default function CourseDetailPage() {
   const [activeTab, setActiveTab] = useState('overview');
-  const [isEnrolled, setIsEnrolled] = useState(false);
+  // const [isEnrolled, setIsEnrolled] = useState(false);
   const [isFavorite, setIsFavorite] = useState(false);
   const [showTrailer, setShowTrailer] = useState(false);
   const [showCertificate, setShowCertificate] = useState(false);
@@ -245,7 +241,7 @@ export default function CourseDetailPage() {
                       </div>
 
                       <Button className="w-full cyber-button text-lg py-3">
-                        {isEnrolled ? 'Continue Learning' : 'Enroll Now'}
+                        Enroll Now
                       </Button>
 
                       <div className="text-center text-sm text-muted-foreground">
@@ -326,7 +322,7 @@ export default function CourseDetailPage() {
                 <CardHeader>
                   <CardTitle className="flex items-center space-x-2">
                     <Target className="w-5 h-5 text-primary" />
-                    <span>What you'll learn</span>
+                    <span>What you&apos;ll learn</span>
                   </CardTitle>
                 </CardHeader>
                 <CardContent>

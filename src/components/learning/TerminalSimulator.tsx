@@ -3,7 +3,7 @@
 import { useState, useRef, useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Terminal, Zap, ArrowRight } from 'lucide-react';
+import { Terminal, ArrowRight } from 'lucide-react';
 
 const mockCommands: Record<string, string> = {
   help: 'Available commands: help, whoami, nmap, clear',

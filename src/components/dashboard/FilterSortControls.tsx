@@ -20,8 +20,8 @@ import {
 } from 'lucide-react';
 
 interface FilterSortControlsProps {
-  onFiltersChange: (filters: any) => void;
-  onSortChange: (sort: any) => void;
+  onFiltersChange: (filters: string[]) => void;
+  onSortChange: (sort: string) => void;
   onSearchChange: (search: string) => void;
   className?: string;
 }

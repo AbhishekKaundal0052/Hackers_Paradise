@@ -26,8 +26,8 @@ interface RealTimeUpdate {
 }
 
 interface RealTimeUpdatesProps {
-  onMetricsUpdate?: (metrics: any) => void;
-  onActivityUpdate?: (activity: any) => void;
+  onMetricsUpdate?: (metrics: Record<string, unknown>) => void;
+  onActivityUpdate?: (activity: Record<string, unknown>) => void;
   className?: string;
 }
 

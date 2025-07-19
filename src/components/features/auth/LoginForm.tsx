@@ -15,7 +15,7 @@ import { AuthInput } from './AuthInput';
 import { AuthButton } from './AuthButton';
 import { SocialLoginButtons } from './SocialLoginButtons';
 import { useAuthStore } from '@/lib/auth-store';
-import { LoginForm as LoginFormType } from '@/types/auth';
+// import { LoginForm as LoginFormType } from '@/types/auth';
 
 const loginSchema = z.object({
   email: z.string().email("Please enter a valid email address"),
@@ -34,7 +34,7 @@ export function LoginForm() {
     register,
     handleSubmit,
     formState: { errors },
-    watch,
+    // watch,
   } = useForm<LoginFormData>({
     resolver: zodResolver(loginSchema),
     defaultValues: {
@@ -195,7 +195,7 @@ export function LoginForm() {
           className="text-center"
         >
           <p className="text-gray-400">
-            Don't have an account?{' '}
+            Don&apos;t have an account?{' '}
             <Link
               href="/sign-up"
               className="text-red-400 hover:text-red-300 font-medium transition-colors"

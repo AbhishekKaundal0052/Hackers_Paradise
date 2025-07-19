@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Shield, Lock, Smartphone, Monitor, Download, Trash2, AlertTriangle, CheckCircle, Eye, EyeOff, QrCode } from 'lucide-react';
+import { Shield, Lock, Smartphone, Monitor, Download, Trash2, AlertTriangle, CheckCircle, Eye, EyeOff } from 'lucide-react';
 import { SecuritySettings as SecuritySettingsType } from '@/types/settings';
 import { Input } from '@/components/ui/input';
 import { Select } from '@/components/ui/select';
@@ -82,7 +82,7 @@ const mockSecuritySettings: SecuritySettingsType = {
 
 export function SecuritySettings({ onChanges }: SecuritySettingsProps) {
   const [settings, setSettings] = useState<SecuritySettingsType>(mockSecuritySettings);
-  const [originalSettings, setOriginalSettings] = useState<SecuritySettingsType>(mockSecuritySettings);
+  const [originalSettings] = useState<SecuritySettingsType>(mockSecuritySettings);
   const [activeTab, setActiveTab] = useState('password');
   const [showPasswords, setShowPasswords] = useState({
     current: false,
@@ -95,7 +95,7 @@ export function SecuritySettings({ onChanges }: SecuritySettingsProps) {
     onChanges(hasChanges);
   }, [settings, originalSettings, onChanges]);
 
-  const handleInputChange = (section: keyof SecuritySettingsType, field: string, value: any) => {
+  const handleInputChange = (section: keyof SecuritySettingsType, field: string, value: string | number | boolean | string[]) => {
     setSettings(prev => ({
       ...prev,
       [section]: {

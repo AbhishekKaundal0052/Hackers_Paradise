@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Bell, Mail, MessageSquare, Calendar, Award, Users, Settings, CheckCircle, AlertTriangle } from 'lucide-react';
+import { Bell, Mail, Calendar, Users, CheckCircle } from 'lucide-react';
 import { NotificationSettings as NotificationSettingsType } from '@/types/settings';
 import { Input } from '@/components/ui/input';
 import { Select } from '@/components/ui/select';
@@ -65,7 +65,7 @@ const mockNotificationSettings: NotificationSettingsType = {
 
 export function NotificationSettings({ onChanges }: NotificationSettingsProps) {
   const [settings, setSettings] = useState<NotificationSettingsType>(mockNotificationSettings);
-  const [originalSettings, setOriginalSettings] = useState<NotificationSettingsType>(mockNotificationSettings);
+  const [originalSettings] = useState<NotificationSettingsType>(mockNotificationSettings);
   const [activeTab, setActiveTab] = useState('email');
 
   useEffect(() => {
@@ -84,32 +84,40 @@ export function NotificationSettings({ onChanges }: NotificationSettingsProps) {
   };
 
   const handleNestedToggle = (section: keyof NotificationSettingsType, subsection: string, field: string, value: boolean) => {
-    setSettings(prev => ({
-      ...prev,
-      [section]: {
-        ...prev[section],
-        [subsection]: {
-          ...(prev[section] as any)[subsection],
-          [field]: value
+    setSettings(prev => {
+      const currentSection = prev[section] as Record<string, unknown>;
+      const currentSubsection = currentSection[subsection] as Record<string, unknown>;
+      return {
+        ...prev,
+        [section]: {
+          ...currentSection,
+          [subsection]: {
+            ...currentSubsection,
+            [field]: value
+          }
         }
-      }
-    }));
+      };
+    });
   };
 
   const handleNestedInputChange = (section: keyof NotificationSettingsType, subsection: string, field: string, value: string) => {
-    setSettings(prev => ({
-      ...prev,
-      [section]: {
-        ...prev[section],
-        [subsection]: {
-          ...(prev[section] as any)[subsection],
-          [field]: value
+    setSettings(prev => {
+      const currentSection = prev[section] as Record<string, unknown>;
+      const currentSubsection = currentSection[subsection] as Record<string, unknown>;
+      return {
+        ...prev,
+        [section]: {
+          ...currentSection,
+          [subsection]: {
+            ...currentSubsection,
+            [field]: value
+          }
         }
-      }
-    }));
+      };
+    });
   };
 
-  const handleInputChange = (section: keyof NotificationSettingsType, field: string, value: any) => {
+  const handleInputChange = (section: keyof NotificationSettingsType, field: string, value: string | boolean) => {
     setSettings(prev => ({
       ...prev,
       [section]: {
@@ -196,7 +204,7 @@ export function NotificationSettings({ onChanges }: NotificationSettingsProps) {
             <div className="space-y-2">
               <div className="flex items-center space-x-2">
                 <Mail className="w-4 h-4 text-blue-400" />
-                <span className="text-sm text-gray-400">From: Hacker's Paradise</span>
+                <span className="text-sm text-gray-400">From: Hacker&apos;s Paradise</span>
               </div>
               <div className="text-white font-medium">Course Update: Advanced Penetration Testing</div>
               <div className="text-sm text-gray-400">
@@ -311,7 +319,7 @@ export function NotificationSettings({ onChanges }: NotificationSettingsProps) {
               <div className="w-2 h-2 bg-green-400 rounded-full mt-2"></div>
               <div className="flex-1">
                 <div className="text-white font-medium">Achievement Unlocked!</div>
-                <div className="text-sm text-gray-400">You've completed 10 courses</div>
+                <div className="text-sm text-gray-400">You&apos;ve completed 10 courses</div>
                 <div className="text-xs text-gray-500 mt-1">2 minutes ago</div>
               </div>
             </div>

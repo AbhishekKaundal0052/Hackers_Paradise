@@ -127,6 +127,6 @@ export interface ChatMessage {
 export interface CommunityStats {
   label: string;
   value: string;
-  icon: any;
+  icon: string;
   trend: string;
 } 

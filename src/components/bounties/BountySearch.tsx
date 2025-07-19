@@ -32,7 +32,7 @@ export const BountySearch: React.FC<BountySearchProps> = ({
         title="Sort By"
         className="rounded bg-slate-900 text-white p-2 border border-slate-700"
         value={sortBy}
-        onChange={e => onSortChange(e.target.value as any)}
+        onChange={e => onSortChange(e.target.value as 'reward' | 'deadline' | 'difficulty' | 'newest')}
       >
         <option value="newest">Newest</option>
         <option value="reward">Reward</option>

@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Github, ExternalLink, FileText, Code, Search, Filter, Star, Eye } from 'lucide-react';
+import { Github, ExternalLink, FileText, Code, Search, Star } from 'lucide-react';
 import { PortfolioItem } from '@/types/profile';
 
 const mockPortfolio: PortfolioItem[] = [

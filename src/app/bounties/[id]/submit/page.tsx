@@ -81,9 +81,9 @@ export default function BountySubmissionPage() {
             <div className="flex justify-between mt-8">
               <Button onClick={prevStep} disabled={step === 0} variant="secondary">Back</Button>
               {step < steps.length - 1 ? (
-                <Button onClick={nextStep} variant="primary">Next</Button>
+                <Button onClick={nextStep} variant="default">Next</Button>
               ) : (
-                <Button variant="primary">Submit</Button>
+                <Button variant="default">Submit</Button>
               )}
             </div>
           </CardContent>

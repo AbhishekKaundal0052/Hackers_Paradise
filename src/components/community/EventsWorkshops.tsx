@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Calendar, Clock, Users, MapPin, Star, Play, Video, Users2, Trophy } from 'lucide-react';
+import { Calendar, Clock, Users, MapPin, Play, Video, Users2, Trophy } from 'lucide-react';
 import { CommunityEvent } from '@/types/community';
 
 const mockEvents: CommunityEvent[] = [

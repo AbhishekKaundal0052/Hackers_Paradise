@@ -2,8 +2,8 @@
 
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Shield, CheckCircle, Star, Users, Award, Search, Filter } from 'lucide-react';
-import { Skill, skillCategories } from '@/types/profile';
+import { Shield, CheckCircle, Star, Users, Award, Search } from 'lucide-react';
+import { Skill } from '@/types/profile';
 
 interface SkillsExpertiseProps {
   compact?: boolean;

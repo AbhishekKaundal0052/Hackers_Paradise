@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Users, MessageSquare, Calendar, Trophy, UserCheck, TrendingUp, Clock, Star } from 'lucide-react';
+import { Users, MessageSquare, Calendar, Trophy, UserCheck } from 'lucide-react';
 import { CommunityHeader } from '@/components/community/CommunityHeader';
 import { ForumCategories } from '@/components/community/ForumCategories';
 import { MemberDirectory } from '@/components/community/MemberDirectory';
@@ -26,9 +26,9 @@ export default function CommunityPage() {
   ];
 
   const stats = [
-    { label: 'Active Discussions', value: '1,247', icon: MessageSquare, trend: '+12%' },
-    { label: 'Online Members', value: '2,341', icon: Users, trend: '+5%' },
-    { label: 'New Posts Today', value: '89', icon: TrendingUp, trend: '+23%' },
+    { label: 'Active Discussions', value: '1,247', icon: '💬', trend: '+12%' },
+    { label: 'Online Members', value: '2,341', icon: '👥', trend: '+5%' },
+    { label: 'New Posts Today', value: '89', icon: '📈', trend: '+23%' },
   ];
 
   return (

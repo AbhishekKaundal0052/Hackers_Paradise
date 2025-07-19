@@ -1,6 +1,6 @@
 import React from 'react';
 import Layout from '@/components/layout/Layout';
-import { Bounty, Difficulty, BountyStatus } from '@/types';
+import { Bounty, Difficulty, BountyStatus, BountyCategory } from '@/types';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import Link from 'next/link';
@@ -12,7 +12,7 @@ const mockBounty: Bounty = {
   description: 'Identify and exploit SQL injection vulnerabilities in the authentication system.\n\n**Technical Requirements:**\n- Test all input fields for SQLi\n- Provide PoC and remediation\n\n**Submission Guidelines:**\n- Attach PoC code\n- Include screenshots\n- Write a clear report',
   reward: 5000,
   difficulty: Difficulty.INTERMEDIATE,
-  category: 'web_application',
+  category: BountyCategory.WEB_APPLICATION,
   status: BountyStatus.OPEN,
   company: 'TechCorp Inc.',
   logo: '/api/placeholder/60/60',

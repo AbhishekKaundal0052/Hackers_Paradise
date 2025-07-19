@@ -3,16 +3,14 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Layout from '@/components/layout/Layout';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { TooltipProvider } from '@/components/ui/tooltip';
 import { Skeleton, SkeletonCard, SkeletonChart } from '@/components/ui/skeleton';
 import MetricsCard from '@/components/dashboard/MetricsCard';
 import ProgressCard from '@/components/dashboard/ProgressCard';
 import ActivityTimeline from '@/components/dashboard/ActivityTimeline';
-import ProgressRing from '@/components/dashboard/ProgressRing';
+// import ProgressRing from '@/components/dashboard/ProgressRing';
 import BarChart from '@/components/dashboard/BarChart';
 import LineChart from '@/components/dashboard/LineChart';
 import Heatmap from '@/components/dashboard/Heatmap';
@@ -22,21 +20,9 @@ import DraggableDashboard from '@/components/dashboard/DraggableDashboard';
 import FilterSortControls from '@/components/dashboard/FilterSortControls';
 import RealTimeUpdates from '@/components/dashboard/RealTimeUpdates';
 import { 
-  TrendingUp, 
-  Target, 
-  BookOpen, 
-  Award, 
-  Clock, 
-  Zap,
-  Shield,
-  Lock,
-  Activity,
-  Star,
   CheckCircle,
   AlertCircle,
   RefreshCw,
-  Settings,
-  Maximize2,
   X
 } from 'lucide-react';
 import { 
@@ -91,62 +77,62 @@ const mockActivity = [
   }
 ];
 
-const recentCourses = [
-  {
-    id: '1',
-    title: 'Ethical Hacking Fundamentals',
-    progress: 75,
-    category: 'Penetration Testing',
-    difficulty: 'Intermediate',
-    duration: '8 hours',
-    rating: 4.8
-  },
-  {
-    id: '2',
-    title: 'Web Application Security',
-    progress: 45,
-    category: 'Web Security',
-    difficulty: 'Advanced',
-    duration: '12 hours',
-    rating: 4.9
-  },
-  {
-    id: '3',
-    title: 'Network Security Essentials',
-    progress: 100,
-    category: 'Network Security',
-    difficulty: 'Beginner',
-    duration: '6 hours',
-    rating: 4.7
-  }
-];
+// const recentCourses = [
+//   {
+//     id: '1',
+//     title: 'Ethical Hacking Fundamentals',
+//     progress: 75,
+//     category: 'Penetration Testing',
+//     difficulty: 'Intermediate',
+//     duration: '8 hours',
+//     rating: 4.8
+//   },
+//   {
+//     id: '2',
+//     title: 'Web Application Security',
+//     progress: 45,
+//     category: 'Web Security',
+//     difficulty: 'Advanced',
+//     duration: '12 hours',
+//     rating: 4.9
+//   },
+//   {
+//     id: '3',
+//     title: 'Network Security Essentials',
+//     progress: 100,
+//     category: 'Network Security',
+//     difficulty: 'Beginner',
+//     duration: '6 hours',
+//     rating: 4.7
+//   }
+// ];
 
-const activeBounties = [
-  {
-    id: '1',
-    title: 'Find XSS in Login Form',
-    reward: 500,
-    difficulty: 'Medium',
-    deadline: '3 days',
-    participants: 24
-  },
-  {
-    id: '2',
-    title: 'SQL Injection Challenge',
-    reward: 1000,
-    difficulty: 'Hard',
-    deadline: '1 week',
-    participants: 12
-  },
-  {
-    id: '3',
-    title: 'CSRF Token Bypass',
-    reward: 750,
-    difficulty: 'Medium',
-    deadline: '5 days',
-    participants: 18
-  }
-];
+// const activeBounties = [
+//   {
+//     id: '1',
+//     title: 'Find XSS in Login Form',
+//     reward: 500,
+//     difficulty: 'Medium',
+//     deadline: '3 days',
+//     participants: 24
+//   },
+//   {
+//     id: '2',
+//     title: 'SQL Injection Challenge',
+//     reward: 1000,
+//     difficulty: 'Hard',
+//     deadline: '1 week',
+//     participants: 12
+//   },
+//   {
+//     id: '3',
+//     title: 'CSRF Token Bypass',
+//     reward: 750,
+//     difficulty: 'Medium',
+//     deadline: '5 days',
+//     participants: 18
+//   }
+// ];
 
 // Mock data for new widgets
 const dashboardMetrics = {
@@ -395,18 +381,18 @@ export default function DashboardPage() {
       if (saved) {
         try {
           return JSON.parse(saved);
-        } catch (e) {
+        } catch {
           console.warn('Failed to load saved dashboard layout');
         }
       }
     }
     return dashboardWidgets;
   });
-  const [activeFilters, setActiveFilters] = useState<string[]>([]);
-  const [sortBy, setSortBy] = useState('recent');
-  const [searchTerm, setSearchTerm] = useState('');
+  // const [activeFilters, setActiveFilters] = useState<string[]>([]);
+  // const [sortBy, setSortBy] = useState('recent');
+  // const [searchTerm, setSearchTerm] = useState('');
   const [showModal, setShowModal] = useState(false);
-  const [modalContent, setModalContent] = useState<any>(null);
+  const [modalContent, setModalContent] = useState<{ title: string; description: string } | null>(null);
 
   // Simulate loading
   useEffect(() => {
@@ -426,12 +412,12 @@ export default function DashboardPage() {
     return () => clearTimeout(errorTimer);
   }, []);
 
-  const handleMetricsUpdate = (newMetrics: any) => {
+  const handleMetricsUpdate = (newMetrics: Record<string, unknown>) => {
     // Update metrics in real-time
     console.log('Metrics updated:', newMetrics);
   };
 
-  const handleActivityUpdate = (newActivity: any) => {
+  const handleActivityUpdate = (newActivity: Record<string, unknown>) => {
     // Update activity in real-time
     console.log('Activity updated:', newActivity);
   };
@@ -444,22 +430,22 @@ export default function DashboardPage() {
     setTimeout(() => setSuccessMessage(null), 3000);
   };
 
-  const handleFiltersChange = (filters: string[]) => {
-    setActiveFilters(filters);
+  const handleFiltersChange = () => {
+    // setActiveFilters(filters);
   };
 
-  const handleSortChange = (sort: string) => {
-    setSortBy(sort);
+  const handleSortChange = () => {
+    // setSortBy(sort);
   };
 
-  const handleSearchChange = (search: string) => {
-    setSearchTerm(search);
+  const handleSearchChange = () => {
+    // setSearchTerm(search);
   };
 
-  const openModal = (content: any) => {
-    setModalContent(content);
-    setShowModal(true);
-  };
+  // const openModal = (content: any) => {
+  //   setModalContent(content);
+  //   setShowModal(true);
+  // };
 
   const closeModal = () => {
     setShowModal(false);

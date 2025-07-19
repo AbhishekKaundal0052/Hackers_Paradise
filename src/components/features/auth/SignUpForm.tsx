@@ -16,7 +16,7 @@ import { AuthButton } from './AuthButton';
 import { PasswordStrengthMeter } from './PasswordStrengthMeter';
 import { SocialLoginButtons } from './SocialLoginButtons';
 import { useAuthStore } from '@/lib/auth-store';
-import { SignUpForm as SignUpFormType } from '@/types/auth';
+// import { SignUpForm as SignUpFormType } from '@/types/auth';
 
 const signUpSchema = z.object({
   firstName: z.string().min(2, "First name must be at least 2 characters"),
@@ -49,8 +49,8 @@ export function SignUpForm() {
     handleSubmit,
     formState: { errors },
     watch,
-    setValue,
-    trigger,
+    // setValue,
+    // trigger,
   } = useForm<SignUpFormData>({
     resolver: zodResolver(signUpSchema),
     defaultValues: {

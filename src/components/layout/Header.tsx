@@ -9,8 +9,6 @@ import {
   User, 
   Menu, 
   X, 
-  Sun, 
-  Moon,
   ChevronDown,
   LogOut,
   Settings,
@@ -39,8 +37,6 @@ interface HeaderProps {
     role: string;
   };
   notifications?: number;
-  theme?: 'light' | 'dark';
-  onThemeChange?: (theme: 'light' | 'dark') => void;
 }
 
 const navigationItems = [
@@ -53,9 +49,7 @@ const navigationItems = [
 
 export default function Header({ 
   user, 
-  notifications = 0, 
-  theme = 'dark',
-  onThemeChange 
+  notifications = 0
 }: HeaderProps) {
   const [isScrolled, setIsScrolled] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
@@ -86,10 +80,10 @@ export default function Header({
     }
   };
 
-  const toggleTheme = () => {
-    const newTheme = theme === 'dark' ? 'light' : 'dark';
-    onThemeChange?.(newTheme);
-  };
+  // const toggleTheme = () => {
+  //   const newTheme = theme === 'dark' ? 'light' : 'dark';
+  //   onThemeChange?.(newTheme);
+  // };
 
   return (
     <motion.header

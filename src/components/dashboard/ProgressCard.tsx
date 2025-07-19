@@ -6,7 +6,7 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { LearningProgress, ProgressRingData } from '@/types';
 import ProgressRing from './ProgressRing';
-import { BookOpen, Clock, Target, ArrowRight } from 'lucide-react';
+import { BookOpen, Clock, ArrowRight } from 'lucide-react';
 
 interface ProgressCardProps {
   progress: LearningProgress[];

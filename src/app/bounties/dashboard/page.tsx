@@ -1,7 +1,7 @@
 import React from 'react';
 import Layout from '@/components/layout/Layout';
 import { Card, CardContent } from '@/components/ui/card';
-import { Trophy, DollarSign, TrendingUp, Users } from 'lucide-react';
+import { Trophy, DollarSign, TrendingUp } from 'lucide-react';
 
 const mockSubmissions = [
   { id: '1', title: 'SQL Injection', status: 'approved', reward: 5000 },

@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { User, Eye, EyeOff, Globe, Lock, Users, Upload, Edit, Shield, AlertTriangle } from 'lucide-react';
+import { User, Globe, Upload, Shield, AlertTriangle } from 'lucide-react';
 import { ProfileSettings as ProfileSettingsType } from '@/types/settings';
 
 interface ProfileSettingsProps {
@@ -40,7 +40,7 @@ const mockProfileSettings: ProfileSettingsType = {
 
 export function ProfileSettings({ onChanges }: ProfileSettingsProps) {
   const [settings, setSettings] = useState<ProfileSettingsType>(mockProfileSettings);
-  const [originalSettings, setOriginalSettings] = useState<ProfileSettingsType>(mockProfileSettings);
+  const [originalSettings] = useState<ProfileSettingsType>(mockProfileSettings);
   const [activeTab, setActiveTab] = useState('basic');
 
   useEffect(() => {
@@ -48,7 +48,7 @@ export function ProfileSettings({ onChanges }: ProfileSettingsProps) {
     onChanges(hasChanges);
   }, [settings, originalSettings, onChanges]);
 
-  const handleInputChange = (section: keyof ProfileSettingsType, field: string, value: any) => {
+  const handleInputChange = (section: keyof ProfileSettingsType, field: string, value: string | boolean) => {
     setSettings(prev => ({
       ...prev,
       [section]: {

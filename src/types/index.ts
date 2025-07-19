@@ -345,7 +345,7 @@ export interface ActivityItem {
   timestamp: Date;
   icon: string;
   points?: number;
-  metadata?: Record<string, any>;
+  metadata?: Record<string, unknown>;
 }
 
 export interface Achievement {
@@ -394,7 +394,7 @@ export interface DashboardWidget {
   type: 'metrics' | 'progress' | 'activity' | 'achievements' | 'skills' | 'streak' | 'deadlines' | 'chart';
   title: string;
   position: { x: number; y: number; w: number; h: number };
-  config?: Record<string, any>;
+  config?: Record<string, unknown>;
   isVisible: boolean;
   isCollapsed: boolean;
 }

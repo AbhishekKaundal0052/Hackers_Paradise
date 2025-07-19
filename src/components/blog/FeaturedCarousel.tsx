@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { BlogPost } from '@/types';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { ChevronLeft, ChevronRight, Eye, Heart, Clock } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Eye, Heart } from 'lucide-react';
 
 interface FeaturedCarouselProps {
   posts: BlogPost[];

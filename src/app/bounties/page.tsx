@@ -9,13 +9,9 @@ import { BountySearch } from '@/components/bounties/BountySearch';
 import { Card, CardContent } from '@/components/ui/card';
 import { 
   Search, 
-  Filter, 
-  TrendingUp, 
-  Clock, 
   DollarSign, 
   Target,
   Zap,
-  Users,
   Trophy
 } from 'lucide-react';
 
@@ -104,7 +100,7 @@ const mockBounties: Bounty[] = [
 ];
 
 export default function BountiesPage() {
-  const [bounties, setBounties] = useState<Bounty[]>(mockBounties);
+  const [bounties] = useState<Bounty[]>(mockBounties);
   const [filteredBounties, setFilteredBounties] = useState<Bounty[]>(mockBounties);
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState<BountyCategory | 'all'>('all');
@@ -116,7 +112,7 @@ export default function BountiesPage() {
 
   // Filter and sort bounties
   useEffect(() => {
-    let filtered = bounties.filter(bounty => {
+    const filtered = bounties.filter(bounty => {
       const matchesSearch = bounty.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
                            bounty.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
                            bounty.tags.some(tag => tag.toLowerCase().includes(searchTerm.toLowerCase()));
