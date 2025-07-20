@@ -146,7 +146,7 @@ export default function BountiesPage() {
 
   const stats = {
     totalBounties: bounties.length,
-    totalReward: bounties.reduce((sum, bounty) => sum + bounty.reward, 0),
+    totalReward: bounties.reduce((sum: number, bounty: Bounty) => sum + bounty.reward, 0),
     activeBounties: bounties.filter(b => b.status === BountyStatus.OPEN).length,
     avgReward: Math.round(bounties.reduce((sum, bounty) => sum + bounty.reward, 0) / bounties.length)
   };

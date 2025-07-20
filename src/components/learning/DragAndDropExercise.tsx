@@ -1,10 +1,28 @@
 'use client';
 
 import { useState, useRef } from 'react';
-import { DragDropContext, Droppable, Draggable, DropResult } from 'react-beautiful-dnd';
+import {
+  DndContext,
+  closestCenter,
+  KeyboardSensor,
+  PointerSensor,
+  useSensor,
+  useSensors,
+  DragEndEvent,
+} from '@dnd-kit/core';
+import {
+  arrayMove,
+  SortableContext,
+  sortableKeyboardCoordinates,
+  verticalListSortingStrategy,
+} from '@dnd-kit/sortable';
+import {
+  useSortable,
+} from '@dnd-kit/sortable';
+import { CSS } from '@dnd-kit/utilities';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { CheckCircle, XCircle, RefreshCcw } from 'lucide-react';
+import { CheckCircle, XCircle, RefreshCcw, GripVertical } from 'lucide-react';
 
 interface DragAndDropExerciseProps {
   prompt: string;
@@ -13,18 +31,72 @@ interface DragAndDropExerciseProps {
   onComplete?: (isCorrect: boolean) => void;
 }
 
+interface SortableItemProps {
+  id: string;
+  children: React.ReactNode;
+  index: number;
+}
+
+function SortableItem({ id, children, index }: SortableItemProps) {
+  const {
+    attributes,
+    listeners,
+    setNodeRef,
+    transform,
+    transition,
+    isDragging,
+  } = useSortable({ id });
+
+  const style = {
+    transform: CSS.Transform.toString(transform),
+    transition,
+  };
+
+  return (
+    <div
+      ref={setNodeRef}
+      style={style}
+      className={`bg-black/80 border border-white/10 rounded-lg p-3 font-mono text-green-400 text-sm transition-shadow flex items-center gap-2 ${isDragging ? 'shadow-lg opacity-50' : ''}`}
+      tabIndex={0}
+      aria-label={`Code block ${index + 1}: ${children}`}
+    >
+      <div
+        {...attributes}
+        {...listeners}
+        className="cursor-grab active:cursor-grabbing"
+        aria-label="Drag handle"
+      >
+        <GripVertical className="w-4 h-4 text-white/50" />
+      </div>
+      <span className="flex-1">{children}</span>
+    </div>
+  );
+}
+
 export default function DragAndDropExercise({ prompt, blocks, correctOrder, onComplete }: DragAndDropExerciseProps) {
   const [items, setItems] = useState(blocks);
   const [submitted, setSubmitted] = useState(false);
   const [isCorrect, setIsCorrect] = useState(false);
   const liveRegionRef = useRef<HTMLDivElement>(null);
 
-  const onDragEnd = (result: DropResult) => {
-    if (!result.destination) return;
-    const newItems = Array.from(items);
-    const [removed] = newItems.splice(result.source.index, 1);
-    newItems.splice(result.destination.index, 0, removed);
-    setItems(newItems);
+  const sensors = useSensors(
+    useSensor(PointerSensor),
+    useSensor(KeyboardSensor, {
+      coordinateGetter: sortableKeyboardCoordinates,
+    })
+  );
+
+  const onDragEnd = (event: DragEndEvent) => {
+    const { active, over } = event;
+
+    if (active.id !== over?.id) {
+      setItems((items) => {
+        const oldIndex = items.indexOf(active.id as string);
+        const newIndex = items.indexOf(over?.id as string);
+
+        return arrayMove(items, oldIndex, newIndex);
+      });
+    }
   };
 
   const handleSubmit = () => {
@@ -51,38 +123,24 @@ export default function DragAndDropExercise({ prompt, blocks, correctOrder, onCo
       <CardContent>
         <div className="mb-4 text-white font-medium">{prompt}</div>
         <div ref={liveRegionRef} aria-live="polite" className="sr-only" />
-        <DragDropContext onDragEnd={onDragEnd}>
-          <Droppable droppableId="code-blocks">
-            {(provided) => (
-              <div
-                {...provided.droppableProps}
-                ref={provided.innerRef}
-                className="space-y-2 mb-4"
-                role="list"
-                aria-label="Code blocks to reorder"
-              >
-                {items.map((block, idx) => (
-                  <Draggable key={block} draggableId={block} index={idx}>
-                    {(provided, snapshot) => (
-                      <div
-                        ref={provided.innerRef}
-                        {...provided.draggableProps}
-                        {...provided.dragHandleProps}
-                        className={`bg-black/80 border border-white/10 rounded-lg p-3 font-mono text-green-400 text-sm transition-shadow ${snapshot.isDragging ? 'shadow-lg' : ''}`}
-                        tabIndex={0}
-                        aria-label={`Code block ${idx + 1}: ${block}`}
-                        role="listitem"
-                      >
-                        {block}
-                      </div>
-                    )}
-                  </Draggable>
-                ))}
-                {provided.placeholder}
-              </div>
-            )}
-          </Droppable>
-        </DragDropContext>
+        <DndContext
+          sensors={sensors}
+          collisionDetection={closestCenter}
+          onDragEnd={onDragEnd}
+        >
+          <SortableContext items={items} strategy={verticalListSortingStrategy}>
+            <div
+              className="space-y-2 mb-4"
+              aria-label="Code blocks to reorder"
+            >
+              {items.map((block, idx) => (
+                <SortableItem key={block} id={block} index={idx}>
+                  {block}
+                </SortableItem>
+              ))}
+            </div>
+          </SortableContext>
+        </DndContext>
         <div className="flex items-center space-x-2">
           <Button onClick={handleSubmit} disabled={submitted} className="cyber-button" aria-label="Submit code order">
             Submit
