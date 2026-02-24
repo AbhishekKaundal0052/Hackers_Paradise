@@ -30,8 +30,7 @@ const similarBounties = [
 
 export default function BountyDetailPage() {
   return (
-    <Layout>
-      <div className="container mx-auto px-4 py-8">
+    <div className="container mx-auto px-4 py-8">
         <div className="flex flex-col md:flex-row gap-8">
           {/* Main Content */}
           <div className="flex-1">
@@ -98,6 +97,5 @@ export default function BountyDetailPage() {
           </div>
         </div>
       </div>
-    </Layout>
   );
 } 

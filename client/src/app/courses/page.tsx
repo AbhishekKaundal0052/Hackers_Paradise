@@ -713,8 +713,7 @@ export default function CoursesPage() {
   }, []);
 
   return (
-    <Layout showSidebar={true}>
-      <div className="container mx-auto px-4 py-8">
+    <div className="container mx-auto px-4 py-8">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -886,6 +885,5 @@ export default function CoursesPage() {
           </motion.div>
         )}
       </div>
-    </Layout>
   )
 } 

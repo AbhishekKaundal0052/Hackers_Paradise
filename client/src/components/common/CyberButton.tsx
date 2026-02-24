@@ -35,7 +35,7 @@ export default function CyberButton({
       'w-full': fullWidth,
       'cyber-button': variant === 'primary',
       'cyber-button-secondary': variant === 'secondary',
-      'bg-transparent border-2 border-primary text-primary hover:bg-primary hover:text-black hover:shadow-cyber': variant === 'outline',
+      'bg-transparent border-2 border-primary text-primary hover:bg-primary hover:text-white hover:shadow-cyber': variant === 'outline',
       'bg-transparent text-muted-foreground hover:text-white hover:bg-dark-lighter': variant === 'ghost',
       'bg-destructive text-white hover:bg-destructive/90 hover:shadow-cyber': variant === 'danger',
       'shadow-cyber animate-pulse-glow': glow,
@@ -75,19 +75,14 @@ export default function CyberButton({
         </div>
       )}
 
-      {/* Content */}
+      {/* Content - no overlays; glow is done via CSS only so text is never covered */}
       <div className={cn(
-        'flex items-center space-x-2',
+        'relative flex items-center space-x-2',
         { 'opacity-0': loading }
       )}>
         {icon && <span className="flex-shrink-0">{icon}</span>}
         <span>{children}</span>
       </div>
-
-      {/* Glow Effect */}
-      {glow && (
-        <div className="absolute inset-0 rounded-lg bg-gradient-to-r from-primary/20 to-accent/20 opacity-0 hover:opacity-100 transition-opacity duration-300" />
-      )}
     </MotionButton>
   )
 } 

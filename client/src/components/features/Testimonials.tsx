@@ -222,15 +222,21 @@ export default function Testimonials() {
         >
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             <div className="glass-card-dark p-6 rounded-xl border border-white/10">
-              <div className="text-3xl font-cyber font-bold text-primary mb-2">98%</div>
+              <div className="text-3xl font-cyber font-bold text-primary mb-2">
+                Coming Soon
+              </div>
               <div className="text-muted-foreground">Satisfaction Rate</div>
             </div>
             <div className="glass-card-dark p-6 rounded-xl border border-white/10">
-              <div className="text-3xl font-cyber font-bold text-accent mb-2">4.9/5</div>
+              <div className="text-3xl font-cyber font-bold text-accent mb-2">
+                Coming Soon
+              </div>
               <div className="text-muted-foreground">Average Rating</div>
             </div>
             <div className="glass-card-dark p-6 rounded-xl border border-white/10">
-              <div className="text-3xl font-cyber font-bold text-primary mb-2">10K+</div>
+              <div className="text-3xl font-cyber font-bold text-primary mb-2">
+                Coming Soon
+              </div>
               <div className="text-muted-foreground">Happy Students</div>
             </div>
           </div>

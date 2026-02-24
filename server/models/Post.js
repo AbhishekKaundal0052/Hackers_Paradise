@@ -148,7 +148,7 @@ postSchema.index({ author: 1, createdAt: -1 });
 postSchema.index({ status: 1, createdAt: -1 });
 postSchema.index({ category: 1, createdAt: -1 });
 postSchema.index({ tags: 1 });
-postSchema.index({ slug: 1 });
+// slug already indexed via unique: true on field
 postSchema.index({ isFeatured: 1, createdAt: -1 });
 postSchema.index({ views: -1 });
 

@@ -262,7 +262,7 @@ courseSchema.virtual('completionRate').get(function() {
 
 // Indexes for better query performance
 courseSchema.index({ title: 'text', description: 'text' });
-courseSchema.index({ slug: 1 });
+// slug already indexed via unique: true on field
 courseSchema.index({ instructor: 1, createdAt: -1 });
 courseSchema.index({ category: 1, level: 1 });
 courseSchema.index({ isPublished: 1, createdAt: -1 });

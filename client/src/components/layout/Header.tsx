@@ -95,28 +95,28 @@ export default function Header({
           : 'bg-transparent'
       }`}
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      {/* Full-width container so content reaches the edges of the navbar */}
+      <div className="w-full px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
-          {/* Logo */}
+          {/* Logo - left aligned */}
           <motion.div
             whileHover={{ scale: 1.05 }}
             className="flex items-center space-x-2"
           >
             <Link href="/" className="flex items-center space-x-2">
-              <div className="relative">
+              <div className="relative flex items-center space-x-2">
                 <div className="w-8 h-8 bg-gradient-to-br from-primary to-accent rounded-lg flex items-center justify-center">
                   <Shield className="w-5 h-5 text-white" />
                 </div>
-                <div className="absolute inset-0 bg-gradient-to-br from-primary to-accent rounded-lg blur-sm opacity-50"></div>
+                <span className="font-cyber font-bold text-xl text-white">
+                  Hacker&apos;s Paradise
+                </span>
               </div>
-              <span className="font-cyber font-bold text-xl text-white">
-                Hacker&apos;s Paradise
-              </span>
             </Link>
           </motion.div>
 
-          {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center space-x-1">
+          {/* Desktop Navigation - centered page links only */}
+          <nav className="hidden md:flex flex-1 justify-center items-center space-x-1">
             {navigationItems.map((item) => (
               <motion.div
                 key={item.name}
@@ -134,45 +134,44 @@ export default function Header({
             ))}
           </nav>
 
-          {/* Search Bar */}
-          <div className="hidden md:flex items-center flex-1 max-w-md mx-8 relative">
-            <div className="relative w-full">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-muted-foreground" />
-              <Input
-                type="text"
-                placeholder="Search courses, bounties..."
-                value={searchQuery}
-                onChange={(e) => handleSearch(e.target.value)}
-                onFocus={() => setIsSearchFocused(true)}
-                onBlur={() => setTimeout(() => setIsSearchFocused(false), 200)}
-                className="pl-10 pr-4 p-2 rounded-lg bg-white/5 border-white/20 text-white placeholder:text-muted-foreground focus:border-primary focus:ring-primary"
-              />
-              
-              {/* Search Results Dropdown */}
-              <AnimatePresence>
-                {isSearchFocused && searchResults.length > 0 && (
-                  <motion.div
-                    initial={{ opacity: 0, y: -10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -10 }}
-                    className="absolute top-full left-0 right-0 mt-1 glass-card-dark rounded-lg border border-white/10 overflow-hidden"
-                  >
-                    {searchResults.map((result, index) => (
-                      <div
-                        key={index}
-                        className="px-4 py-2 hover:bg-white/5 cursor-pointer text-sm text-white"
-                      >
-                        {result}
-                      </div>
-                    ))}
-                  </motion.div>
-                )}
-              </AnimatePresence>
-            </div>
-          </div>
-
-          {/* Right Side Actions */}
+          {/* Right Side Actions - search + auth + notifications */}
           <div className="flex items-center space-x-4">
+            {/* Search Bar (desktop) */}
+            <div className="hidden md:flex items-center max-w-md mx-2 relative">
+              <div className="relative w-full">
+                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+                <Input
+                  type="text"
+                  placeholder="Search courses, bounties..."
+                  value={searchQuery}
+                  onChange={(e) => handleSearch(e.target.value)}
+                  onFocus={() => setIsSearchFocused(true)}
+                  onBlur={() => setTimeout(() => setIsSearchFocused(false), 200)}
+                  className="pl-10 pr-4 p-2 rounded-lg bg-white/5 border-white/20 text-white placeholder:text-muted-foreground focus:border-primary focus:ring-primary"
+                />
+                
+                {/* Search Results Dropdown */}
+                <AnimatePresence>
+                  {isSearchFocused && searchResults.length > 0 && (
+                    <motion.div
+                      initial={{ opacity: 0, y: -10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -10 }}
+                      className="absolute top-full left-0 right-0 mt-1 glass-card-dark rounded-lg border border-white/10 overflow-hidden"
+                    >
+                      {searchResults.map((result, index) => (
+                        <div
+                          key={index}
+                          className="px-4 py-2 hover:bg-white/5 cursor-pointer text-sm text-white"
+                        >
+                          {result}
+                        </div>
+                      ))}
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
+            </div>
             {/* Theme Toggle */}
             {/* <motion.button
               whileHover={{ scale: 1.1 }}
@@ -249,7 +248,7 @@ export default function Header({
                 </DropdownMenuContent>
               </DropdownMenu>
             ) : (
-              <div className="flex items-center space-x-2">
+              <div className="flex items-center space-x-3">
                 <Link href="/sign-in">
                   <Button variant="ghost" className="text-white hover:bg-white/10">
                     Sign In

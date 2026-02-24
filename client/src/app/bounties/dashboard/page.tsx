@@ -16,8 +16,7 @@ const mockAchievements = [
 
 export default function BountyDashboardPage() {
   return (
-    <Layout>
-      <div className="container mx-auto px-4 py-8">
+    <div className="container mx-auto px-4 py-8">
         <h1 className="text-3xl font-bold text-white mb-6">Bounty Dashboard</h1>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-8">
           {/* Earnings Calculator */}
@@ -101,6 +100,5 @@ export default function BountyDashboardPage() {
           </CardContent>
         </Card>
       </div>
-    </Layout>
   );
 } 

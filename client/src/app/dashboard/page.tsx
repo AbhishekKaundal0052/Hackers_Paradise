@@ -460,8 +460,7 @@ export default function DashboardPage() {
 
   if (isLoading) {
     return (
-      <Layout showSidebar={true} user={mockUser} stats={mockStats} recentActivity={mockActivity}>
-        <div className="container mx-auto px-4 py-8">
+      <div className="container mx-auto px-4 py-8">
           <div className="space-y-6">
             <Skeleton className="h-8 w-64" />
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -484,14 +483,13 @@ export default function DashboardPage() {
             </div>
           </div>
         </div>
-      </Layout>
+      </div>
     );
   }
 
   if (error) {
     return (
-      <Layout showSidebar={true} user={mockUser} stats={mockStats} recentActivity={mockActivity}>
-        <div className="container mx-auto px-4 py-8">
+      <div className="container mx-auto px-4 py-8">
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
@@ -506,7 +504,7 @@ export default function DashboardPage() {
             </Button>
           </motion.div>
         </div>
-      </Layout>
+      </div>
     );
   }
 

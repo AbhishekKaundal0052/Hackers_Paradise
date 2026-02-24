@@ -158,8 +158,7 @@ export default function LearningModulePage() {
   };
 
   return (
-    <Layout showSidebar={false}>
-      <div className="h-screen flex flex-col">
+    <div className="h-screen flex flex-col">
         {/* Header */}
         <div className="bg-black/50 border-b border-white/10 p-4">
           <div className="flex items-center justify-between">

@@ -148,40 +148,38 @@
     box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.6);
   }
 
-  /* Cyber button styles */
+  /* Cyber button styles - background transition on hover only; no overlays so text is never covered */
   .cyber-button {
     position: relative;
-    overflow: hidden;
+    overflow: visible;
     background: linear-gradient(to right, #FF0000, #b25ffb);
     color: white;
     font-family: 'Orbitron', monospace;
     font-weight: 600;
     padding: 0.75rem 1.5rem;
     border-radius: 0.5rem;
-    transition: all 0.3s;
+    transition: transform 0.3s, box-shadow 0.3s, background 0.3s;
     box-shadow: 0 0 20px rgba(255, 0, 0, 0.3);
+  }
+
+  .cyber-button,
+  .cyber-button:hover,
+  .cyber-button:active {
+    color: white;
+  }
+
+  .cyber-button * {
+    color: inherit;
   }
   
   .cyber-button:hover {
     transform: scale(1.05);
     box-shadow: 0 0 30px rgba(255, 0, 0, 0.6);
+    background: linear-gradient(to right, #b25ffb, #FF0000);
   }
   
   .cyber-button:active {
     transform: scale(0.95);
-  }
-  
-  .cyber-button::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(to right, #b25ffb, #FF0000);
-    opacity: 0;
-    transition: opacity 0.3s;
-  }
-  
-  .cyber-button:hover::before {
-    opacity: 1;
   }
   
   .cyber-button-secondary {
@@ -195,6 +193,11 @@
     padding: 0.75rem 1.5rem;
     border-radius: 0.5rem;
     transition: all 0.3s;
+  }
+
+  .cyber-button-secondary > * {
+    position: relative;
+    z-index: 1;
   }
   
   .cyber-button-secondary:hover {

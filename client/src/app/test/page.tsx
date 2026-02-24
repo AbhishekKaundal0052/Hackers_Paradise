@@ -6,8 +6,7 @@ import CyberCard from '@/components/common/CyberCard'
 
 export default function TestPage() {
   return (
-    <Layout>
-      <div className="container mx-auto px-4 py-12">
+    <div className="container mx-auto px-4 py-12">
         <h1 className="cyber-title mb-8 text-center">CSS Test Page</h1>
         
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -34,6 +33,5 @@ export default function TestPage() {
           </CyberButton>
         </div>
       </div>
-    </Layout>
   )
 } 

@@ -1,8 +1,10 @@
 'use client'
 
 import { motion } from 'framer-motion'
+import { useRouter } from 'next/navigation'
 import { ArrowRight, Shield, Zap, Target, BookOpen, Lock, Code, Cpu } from 'lucide-react'
 import CyberButton from '@/components/common/CyberButton'
+import { RouteLoading } from '@/components/layout/Layout'
 import { useState, useEffect } from 'react'
 
 const features = [
@@ -54,6 +56,8 @@ function TypingAnimation({ text, speed = 100 }: { text: string; speed?: number }
 
 export default function Hero() {
   const [mounted, setMounted] = useState(false)
+  const [isNavigating, setIsNavigating] = useState(false)
+  const router = useRouter()
 
   useEffect(() => {
     setMounted(true)
@@ -211,7 +215,10 @@ export default function Hero() {
                 size="lg"
                 glow
                 icon={<Zap className="w-5 h-5" />}
-                onClick={() => console.log('Get Started clicked')}
+                onClick={() => {
+                  setIsNavigating(true)
+                  router.push('/sign-up')
+                }}
               >
                 Get Started Free
               </CyberButton>
@@ -224,7 +231,10 @@ export default function Hero() {
                 variant="outline"
                 size="lg"
                 icon={<ArrowRight className="w-5 h-5" />}
-                onClick={() => console.log('Explore Courses clicked')}
+                onClick={() => {
+                  setIsNavigating(true)
+                  router.push('/courses')
+                }}
               >
                 Explore Courses
               </CyberButton>
@@ -242,8 +252,8 @@ export default function Hero() {
               className="text-center"
               whileHover={{ scale: 1.05 }}
             >
-              <div className="text-3xl md:text-4xl font-cyber font-bold text-primary mb-2">
-                10K+
+              <div className="text-2xl md:text-3xl font-cyber font-bold text-primary mb-2">
+                Coming Soon
               </div>
               <div className="text-muted-foreground">Active Learners</div>
             </motion.div>
@@ -251,8 +261,8 @@ export default function Hero() {
               className="text-center"
               whileHover={{ scale: 1.05 }}
             >
-              <div className="text-3xl md:text-4xl font-cyber font-bold text-accent mb-2">
-                500+
+              <div className="text-2xl md:text-3xl font-cyber font-bold text-accent mb-2">
+                Coming Soon
               </div>
               <div className="text-muted-foreground">Courses Available</div>
             </motion.div>
@@ -260,8 +270,8 @@ export default function Hero() {
               className="text-center"
               whileHover={{ scale: 1.05 }}
             >
-              <div className="text-3xl md:text-4xl font-cyber font-bold text-primary mb-2">
-                $2M+
+              <div className="text-2xl md:text-3xl font-cyber font-bold text-primary mb-2">
+                Coming Soon
               </div>
               <div className="text-muted-foreground">Bounties Paid</div>
             </motion.div>
@@ -329,6 +339,13 @@ export default function Hero() {
           />
         </motion.div>
       </motion.div>
+
+      {/* Page transition loader shown while navigating away */}
+      {isNavigating && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60">
+          <RouteLoading />
+        </div>
+      )}
     </section>
   )
 } 

@@ -162,9 +162,7 @@ userSchema.virtual('displayName').get(function() {
   return this.username || this.fullName;
 });
 
-// Index for better query performance
-userSchema.index({ email: 1 });
-userSchema.index({ username: 1 });
+// Index for better query performance (email and username already indexed via unique: true)
 userSchema.index({ 'skills.name': 1 });
 
 // Pre-save middleware to hash password

@@ -25,8 +25,7 @@ export default function BountySubmissionPage() {
   function prevStep() { setStep(s => Math.max(s - 1, 0)); }
 
   return (
-    <Layout>
-      <div className="container mx-auto px-4 py-8">
+    <div className="container mx-auto px-4 py-8">
         <Card className="bg-slate-800/80 border-slate-700 max-w-2xl mx-auto">
           <CardContent className="p-8">
             {/* Progress Indicator */}
@@ -89,6 +88,5 @@ export default function BountySubmissionPage() {
           </CardContent>
         </Card>
       </div>
-    </Layout>
   );
 } 

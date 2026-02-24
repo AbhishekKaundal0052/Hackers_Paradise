@@ -2,23 +2,22 @@ const mongoose = require('mongoose');
 const logger = require('../utils/logger');
 
 const connectDB = async () => {
-  try {
-    const conn = await mongoose.connect(
-      process.env.NODE_ENV === 'production' 
-        ? process.env.MONGODB_URI_PROD 
-        : process.env.MONGODB_URI,
-      {
-        useNewUrlParser: true,
-        useUnifiedTopology: true,
-        maxPoolSize: 10,
-        serverSelectionTimeoutMS: 5000,
-        socketTimeoutMS: 45000,
-        bufferCommands: false,
-        bufferMaxEntries: 0
-      }
-    );
+  const uri = process.env.MONGODB_URI;
 
-    logger.info(`MongoDB Connected: ${conn.connection.host}`);
+  if (!uri) {
+    logger.error('Error connecting to MongoDB: MONGODB_URI is not set. Copy server/env.example to server/.env and set MONGODB_URI (e.g. mongodb://localhost:27017/hackers-paradise).');
+    process.exit(1);
+  }
+
+  try {
+    const conn = await mongoose.connect(uri, {
+      maxPoolSize: 10,
+      serverSelectionTimeoutMS: 5000,
+      socketTimeoutMS: 45000,
+    });
+
+    const host = conn.connection?.host || conn.connection?.name || 'MongoDB';
+    logger.info(`MongoDB Connected: ${host}`);
 
     // Handle connection events
     mongoose.connection.on('error', (err) => {
@@ -41,7 +40,10 @@ const connectDB = async () => {
     });
 
   } catch (error) {
-    logger.error('Error connecting to MongoDB:', error.message);
+    const msg = error.reason?.message ?? error.message ?? error.toString?.() ?? String(error);
+    logger.error('Error connecting to MongoDB: ' + msg);
+    if (error.reason && error.reason.message !== msg) logger.error('Reason: ' + (error.reason.message || error.reason));
+    if (error.stack) logger.error(error.stack);
     process.exit(1);
   }
 };

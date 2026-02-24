@@ -67,44 +67,6 @@ const achievements = [
   }
 ]
 
-// Animated Counter Component
-function AnimatedCounter({ value, suffix, duration = 2 }: { 
-  value: number, 
-  suffix: string, 
-  duration?: number 
-}) {
-  const [count, setCount] = useState(0)
-  const ref = useRef(null)
-  const isInView = useInView(ref, { once: true, margin: "-50px" })
-
-  useEffect(() => {
-    if (isInView) {
-      let startTime: number
-      let animationFrame: number
-
-      const animate = (timestamp: number) => {
-        if (!startTime) startTime = timestamp
-        const progress = Math.min((timestamp - startTime) / (duration * 1000), 1)
-        
-        setCount(Math.floor(progress * value))
-        
-        if (progress < 1) {
-          animationFrame = requestAnimationFrame(animate)
-        }
-      }
-
-      animationFrame = requestAnimationFrame(animate)
-      return () => cancelAnimationFrame(animationFrame)
-    }
-  }, [isInView, value, duration])
-
-  return (
-    <span ref={ref} className="font-cyber font-bold">
-      {count.toLocaleString()}{suffix}
-    </span>
-  )
-}
-
 export default function Statistics() {
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true, margin: "-100px" })
@@ -162,9 +124,9 @@ export default function Statistics() {
                     <stat.icon className="w-8 h-8 text-white" />
                   </div>
 
-                  {/* Counter */}
-                  <div className="text-4xl md:text-5xl font-cyber font-bold text-primary mb-4">
-                    <AnimatedCounter value={stat.value} suffix={stat.suffix} />
+                  {/* Placeholder metric */}
+                  <div className="text-3xl md:text-4xl font-cyber font-bold text-primary mb-4">
+                    Coming Soon
                   </div>
 
                   {/* Label */}
