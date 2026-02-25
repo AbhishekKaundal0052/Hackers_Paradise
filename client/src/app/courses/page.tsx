@@ -3,7 +3,6 @@
 import { useState, useEffect, useMemo } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Search, BookOpen, Clock, Star, Users, Zap, Grid3X3, List, Play, Lock, Heart, Target, Code, Share2 } from 'lucide-react'
-import Layout from '@/components/layout/Layout'
 import { Badge } from '@/components/ui/badge'
 import {
    formatDuration

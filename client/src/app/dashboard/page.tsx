@@ -483,7 +483,6 @@ export default function DashboardPage() {
             </div>
           </div>
         </div>
-      </div>
     );
   }
 
@@ -504,7 +503,6 @@ export default function DashboardPage() {
             </Button>
           </motion.div>
         </div>
-      </div>
     );
   }
 

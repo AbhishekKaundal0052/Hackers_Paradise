@@ -2,7 +2,6 @@
 
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import Layout from '@/components/layout/Layout';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -133,7 +132,7 @@ export default function CourseDetailPage() {
   const formatDuration = (minutes: number) => {
     const hours = Math.floor(minutes / 60);
     const mins = minutes % 60;
-    return hours > 0 ? `${hours}h ${mins}m` : `${mins}m`;
+    return hours > 0 ? hours + 'h ' + mins + 'm' : mins + 'm';
   };
 
   return (
@@ -413,7 +412,6 @@ export default function CourseDetailPage() {
             </TabsContent>
           </Tabs>
         </motion.div>
-      </div>
-    </Layout>
+    </div>
   );
 } 

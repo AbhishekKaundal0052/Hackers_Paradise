@@ -1,6 +1,5 @@
 'use client'
 
-import Layout from '@/components/layout/Layout'
 import CyberButton from '@/components/common/CyberButton'
 import CyberCard from '@/components/common/CyberCard'
 
