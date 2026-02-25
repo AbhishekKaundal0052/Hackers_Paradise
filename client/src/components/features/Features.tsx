@@ -166,6 +166,8 @@ export default function Features() {
           className="text-center mt-16"
         >
           <motion.button
+            type="button"
+            suppressHydrationWarning
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             className="cyber-button text-lg px-8 py-4"

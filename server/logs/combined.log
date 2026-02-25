@@ -24,3 +24,5 @@
 {"level":"info","message":"MongoDB reconnected","service":"hackers-paradise-api","timestamp":"2026-02-25 02:45:59"}
 {"level":"warn","message":"MongoDB disconnected","service":"hackers-paradise-api","timestamp":"2026-02-25 02:46:12"}
 {"level":"info","message":"MongoDB reconnected","service":"hackers-paradise-api","timestamp":"2026-02-25 02:46:20"}
+{"level":"info","message":"MongoDB Connected: ac-vbbduoy-shard-00-00.7oavbxu.mongodb.net","service":"hackers-paradise-api","timestamp":"2026-02-25 05:26:37"}
+{"level":"info","message":"🚀 Server running in development mode on port 2000","service":"hackers-paradise-api","timestamp":"2026-02-25 05:26:37"}

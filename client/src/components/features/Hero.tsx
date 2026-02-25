@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation'
 import { ArrowRight, Shield, Zap, Target, BookOpen, Lock, Code, Cpu } from 'lucide-react'
 import CyberButton from '@/components/common/CyberButton'
 import { RouteLoading } from '@/components/layout/Layout'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 
 const features = [
   {
@@ -25,10 +25,11 @@ const features = [
   }
 ]
 
-// Typing Animation Component
-function TypingAnimation({ text, speed = 100 }: { text: string; speed?: number }) {
+// Typing Animation Component (optional onComplete when done)
+function TypingAnimation({ text, speed = 100, onComplete }: { text: string; speed?: number; onComplete?: () => void }) {
   const [displayText, setDisplayText] = useState('')
   const [currentIndex, setCurrentIndex] = useState(0)
+  const completedRef = useRef(false)
 
   useEffect(() => {
     if (currentIndex < text.length) {
@@ -37,8 +38,11 @@ function TypingAnimation({ text, speed = 100 }: { text: string; speed?: number }
         setCurrentIndex(prev => prev + 1)
       }, speed)
       return () => clearTimeout(timeout)
+    } else if (currentIndex === text.length && text.length > 0 && !completedRef.current) {
+      completedRef.current = true
+      onComplete?.()
     }
-  }, [currentIndex, text, speed])
+  }, [currentIndex, text, speed, onComplete])
 
   return (
     <span className="text-primary font-mono">
@@ -54,14 +58,51 @@ function TypingAnimation({ text, speed = 100 }: { text: string; speed?: number }
   )
 }
 
+const PROMPT_TEXT = '> Ready to hack the planet? [Y/N] '
+const NURSERY_RHYMES_URL = 'https://www.google.com/search?q=nursery+rhymes'
+
 export default function Hero() {
   const [mounted, setMounted] = useState(false)
   const [isNavigating, setIsNavigating] = useState(false)
+  const [promptComplete, setPromptComplete] = useState(false)
+  const [inputVal, setInputVal] = useState('')
+  const inputRef = useRef<HTMLInputElement>(null)
   const router = useRouter()
 
   useEffect(() => {
     setMounted(true)
   }, [])
+
+  useEffect(() => {
+    if (promptComplete) inputRef.current?.focus()
+  }, [promptComplete])
+
+  const handlePromptKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter') {
+      const v = inputVal.toUpperCase()
+      if (v === 'Y') {
+        setIsNavigating(true)
+        router.push('/courses')
+      } else if (v === 'N') {
+        window.open(NURSERY_RHYMES_URL, '_blank', 'noopener,noreferrer')
+      }
+      return
+    }
+    if (e.key === 'Backspace') {
+      setInputVal('')
+      return
+    }
+    if (e.key.length === 1) {
+      const upper = e.key.toUpperCase()
+      if (upper === 'Y' || upper === 'N') setInputVal(upper)
+      e.preventDefault()
+    }
+  }
+
+  const handlePromptChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const v = e.target.value.toUpperCase()
+    if (v === '' || v === 'Y' || v === 'N') setInputVal(v)
+  }
 
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
@@ -187,15 +228,44 @@ export default function Hero() {
               hands-on courses and real-world bug bounty programs.
             </p>
             
-            {/* Typing Animation */}
+            {/* Y/N prompt: typing animation then input (only Y or N); Enter = Y → /courses, N → nursery rhymes in new tab */}
             {mounted && (
               <motion.div
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 1 }}
-                className="text-lg md:text-xl mb-8 font-mono"
+                className="text-lg md:text-xl mb-8 font-mono flex flex-wrap items-center justify-center gap-0"
               >
-                <TypingAnimation text="> Ready to hack the planet? [Y/N]" speed={80} />
+                {!promptComplete ? (
+                  <TypingAnimation
+                    text={PROMPT_TEXT}
+                    speed={80}
+                    onComplete={() => setPromptComplete(true)}
+                  />
+                ) : (
+                  <>
+                    <span className="text-primary">{PROMPT_TEXT}</span>
+                    <input
+                      ref={inputRef}
+                      type="text"
+                      inputMode="none"
+                      autoComplete="off"
+                      maxLength={1}
+                      value={inputVal}
+                      onChange={handlePromptChange}
+                      onKeyDown={handlePromptKeyDown}
+                      aria-label="Type Y for courses or N for nursery rhymes"
+                      className="w-7 bg-transparent border-none text-primary font-mono text-lg md:text-xl outline-none caret-transparent inline-block p-0"
+                    />
+                    <motion.span
+                      animate={{ opacity: [1, 0] }}
+                      transition={{ duration: 0.5, repeat: Infinity }}
+                      className="text-primary ml-0.5"
+                    >
+                      |
+                    </motion.span>
+                  </>
+                )}
               </motion.div>
             )}
           </motion.div>

@@ -175,6 +175,8 @@ export default function Testimonials() {
               {/* Navigation */}
               <div className="flex items-center space-x-2">
                 <motion.button
+                  type="button"
+                  suppressHydrationWarning
                   whileHover={{ scale: 1.1 }}
                   whileTap={{ scale: 0.9 }}
                   onClick={prevTestimonial}
@@ -183,6 +185,8 @@ export default function Testimonials() {
                   <ChevronLeft className="w-5 h-5 text-white" />
                 </motion.button>
                 <motion.button
+                  type="button"
+                  suppressHydrationWarning
                   whileHover={{ scale: 1.1 }}
                   whileTap={{ scale: 0.9 }}
                   onClick={nextTestimonial}
@@ -199,6 +203,8 @@ export default function Testimonials() {
             {testimonials.map((_, index) => (
               <motion.button
                 key={index}
+                type="button"
+                suppressHydrationWarning
                 whileHover={{ scale: 1.2 }}
                 whileTap={{ scale: 0.8 }}
                 onClick={() => setCurrentIndex(index)}
