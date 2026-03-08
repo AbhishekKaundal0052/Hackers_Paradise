@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { BookOpen, Heart, Eye, Clock, TrendingUp, Search, ArrowRight } from 'lucide-react';
 import { User, BlogPost, UserRole, BlogCategory } from '@/types';

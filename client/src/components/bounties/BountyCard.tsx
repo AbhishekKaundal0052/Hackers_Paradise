@@ -13,10 +13,7 @@ import { Button } from '@/components/ui/button';
 import { 
   Clock, 
   DollarSign, 
-  Shield, 
   Target, 
-  Zap, 
-  Building2,
   ExternalLink,
   ChevronRight
 } from 'lucide-react';

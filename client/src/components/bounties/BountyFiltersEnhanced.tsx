@@ -6,7 +6,6 @@ import {
   Search, 
   Filter, 
   X, 
-  DollarSign, 
   BarChart, 
   Tag, 
   SortAsc,

@@ -16,12 +16,9 @@ import {
   Award, 
   Heart,
   Share2,
-  Lock,
-  Unlock,
   Video,
   Download,
-  CheckCircle,
-  ChevronRight
+  CheckCircle
 } from 'lucide-react';
 import { Course, CourseCategory, Difficulty, UserRole } from '@/types';
 import CertificatePreviewModal from '@/components/learning/CertificatePreviewModal';

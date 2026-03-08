@@ -7,7 +7,6 @@ import {
   Filter, 
   X, 
   Tag, 
-  SortAsc,
   Check,
   Grid3X3,
   List as ListIcon,
@@ -17,7 +16,6 @@ import {
 } from 'lucide-react'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
-import { Badge } from '@/components/ui/badge'
 import { BlogCategory } from '@/types'
 import { cn } from '@/lib/utils'
 

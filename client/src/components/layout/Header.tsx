@@ -14,8 +14,7 @@ import {
   LogOut,
   Settings,
   Shield,
-  Zap,
-  LogIn
+  Zap
 } from 'lucide-react';
 import { useAuthStore } from '@/lib/auth-store';
 import { Button } from '@/components/ui/button';

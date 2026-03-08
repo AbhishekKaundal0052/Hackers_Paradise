@@ -1,7 +1,9 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useAuthStore } from '@/lib/auth-store';
 import Layout from '@/components/layout/Layout';
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
@@ -23,7 +25,8 @@ import {
   CheckCircle,
   AlertCircle,
   RefreshCw,
-  X
+  X,
+  Lock
 } from 'lucide-react';
 import { 
   CourseCategory, 
@@ -32,16 +35,6 @@ import {
   Achievement,
   UpcomingDeadline
 } from '@/types';
-
-const mockUser = {
-  name: 'Alex Chen',
-  email: 'alex.chen@hackersparadise.com',
-  avatar: '/api/placeholder/40/40',
-  role: 'Security Researcher',
-  level: 15,
-  experience: 1250,
-  nextLevelExp: 2000
-};
 
 const mockStats = {
   coursesCompleted: 8,

@@ -1,12 +1,10 @@
 'use client';
 
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useRouter, useParams } from 'next/navigation';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { Progress } from '@/components/ui/progress';
 import { Textarea } from '@/components/ui/textarea';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { 
@@ -14,14 +12,12 @@ import {
   Pause, 
   Volume2, 
   Maximize, 
-  Code,
   Clock,
   FileText,
   ChevronLeft,
   ChevronRight,
   Save,
   Download,
-  Timer,
   Terminal,
   Target,
   Shield,
@@ -38,7 +34,6 @@ import {
 } from 'lucide-react';
 import { mockLesson } from './mockLesson';
 import { cn } from '@/lib/utils';
-import CyberCard from '@/components/common/CyberCard';
 import CyberButton from '@/components/common/CyberButton';
 import { toast } from 'react-hot-toast';
 
@@ -55,8 +50,6 @@ export default function LearningModulePage() {
   const [isCompleted, setIsCompleted] = useState(false);
   const [showSidebar, setShowSidebar] = useState(true);
   const [copiedIndex, setCopiedIndex] = useState<number | null>(null);
-
-  const videoRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const interval = setInterval(() => {
