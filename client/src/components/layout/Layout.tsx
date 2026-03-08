@@ -6,19 +6,12 @@ import Header from './Header'
 import Sidebar from './Sidebar'
 import Footer from './Footer'
 import { Button } from '@/components/ui/button'
+import MatrixBackground from '@/components/features/MatrixBackground'
+import MouseLightEffect from '@/components/features/MouseLightEffect'
 
 interface LayoutProps {
   children: React.ReactNode
   showSidebar?: boolean
-  user?: {
-    name: string
-    email: string
-    avatar?: string
-    role: string
-    level: number
-    experience: number
-    nextLevelExp: number
-  }
   stats?: {
     coursesCompleted: number
     bountiesWon: number
@@ -62,7 +55,6 @@ function BackgroundPattern() {
 export default function Layout({ 
   children, 
   showSidebar = false,
-  user,
   stats,
   recentActivity
 }: LayoutProps) {
@@ -81,10 +73,11 @@ export default function Layout({
   return (
     <div className={`min-h-screen ${theme === 'dark' ? 'dark' : ''}`} suppressHydrationWarning>
       <BackgroundPattern />
+      <MouseLightEffect />
+      <MatrixBackground />
       
       {/* Header */}
       <Header 
-        user={user}
         notifications={_notifications}
       />
 
@@ -92,7 +85,6 @@ export default function Layout({
       <AnimatePresence>
         {showSidebar && (
           <Sidebar 
-            user={user}
             stats={stats}
             recentActivity={recentActivity}
           />
@@ -104,7 +96,7 @@ export default function Layout({
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
-        className={`pt-16 transition-all duration-300 ${
+        className={`pt-14 sm:pt-16 transition-all duration-300 ${
           showSidebar ? 'md:ml-80' : ''
         }`}
       >

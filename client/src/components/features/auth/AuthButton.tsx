@@ -75,9 +75,9 @@ export function AuthButton({
       {/* Gradient overlay */}
       <div className="absolute inset-0 bg-gradient-to-r from-red-500/20 to-purple-500/20 opacity-0 hover:opacity-100 transition-opacity duration-300" />
       
-      {/* Content */}
-      <div className="relative z-10 flex items-center justify-center space-x-2">
-        {loading && (
+      {/* Content - inline-flex so icon and text stay on one line */}
+      <div className="relative z-10 flex items-center justify-center">
+        {loading ? (
           <motion.div
             initial={{ opacity: 0, rotate: -180 }}
             animate={{ opacity: 1, rotate: 0 }}
@@ -85,8 +85,9 @@ export function AuthButton({
           >
             <Loader2 size={18} className="animate-spin" />
           </motion.div>
+        ) : (
+          <span className="inline-flex items-center justify-center gap-2">{children}</span>
         )}
-        <span>{children}</span>
       </div>
       
       {/* Glow effect */}

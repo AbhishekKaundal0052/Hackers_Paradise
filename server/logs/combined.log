@@ -29,3 +29,20 @@
 {"level":"info","message":"MongoDB reconnected","service":"hackers-paradise-api","timestamp":"2026-02-25 05:58:10"}
 {"level":"warn","message":"MongoDB disconnected","service":"hackers-paradise-api","timestamp":"2026-02-25 05:58:31"}
 {"level":"info","message":"MongoDB reconnected","service":"hackers-paradise-api","timestamp":"2026-02-25 05:58:43"}
+{"level":"warn","message":"MongoDB disconnected","service":"hackers-paradise-api","timestamp":"2026-02-25 07:14:52"}
+{"level":"info","message":"MongoDB reconnected","service":"hackers-paradise-api","timestamp":"2026-02-25 07:15:03"}
+{"level":"info","message":"MongoDB Connected: ac-vbbduoy-shard-00-00.7oavbxu.mongodb.net","service":"hackers-paradise-api","timestamp":"2026-03-08 18:55:51"}
+{"level":"info","message":"🚀 Server running in development mode on port 2000","service":"hackers-paradise-api","timestamp":"2026-03-08 18:55:51"}
+{"level":"warn","message":"MongoDB disconnected","service":"hackers-paradise-api","timestamp":"2026-03-08 19:44:56"}
+{"level":"info","message":"MongoDB reconnected","service":"hackers-paradise-api","timestamp":"2026-03-08 19:45:07"}
+{"level":"info","message":"MongoDB reconnected","service":"hackers-paradise-api","timestamp":"2026-03-08 19:53:34"}
+{"level":"warn","message":"MongoDB disconnected","service":"hackers-paradise-api","timestamp":"2026-03-08 20:06:55"}
+{"level":"info","message":"MongoDB reconnected","service":"hackers-paradise-api","timestamp":"2026-03-08 20:06:55"}
+{"level":"warn","message":"MongoDB disconnected","service":"hackers-paradise-api","timestamp":"2026-03-08 20:07:05"}
+{"level":"info","message":"MongoDB reconnected","service":"hackers-paradise-api","timestamp":"2026-03-08 20:07:18"}
+{"level":"info","message":"MongoDB reconnected","service":"hackers-paradise-api","timestamp":"2026-03-08 21:24:07"}
+{"level":"info","message":"MongoDB reconnected","service":"hackers-paradise-api","timestamp":"2026-03-08 21:24:08"}
+{"level":"warn","message":"MongoDB disconnected","service":"hackers-paradise-api","timestamp":"2026-03-08 21:24:22"}
+{"level":"info","message":"MongoDB reconnected","service":"hackers-paradise-api","timestamp":"2026-03-08 21:24:24"}
+{"level":"warn","message":"MongoDB disconnected","service":"hackers-paradise-api","timestamp":"2026-03-08 21:51:04"}
+{"level":"info","message":"MongoDB reconnected","service":"hackers-paradise-api","timestamp":"2026-03-08 21:51:19"}

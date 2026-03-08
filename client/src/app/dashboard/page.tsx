@@ -371,6 +371,7 @@ const dashboardWidgets: DashboardWidget[] = [
 ];
 
 export default function DashboardPage() {
+  const { user, isAuthenticated } = useAuthStore();
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
@@ -405,7 +406,7 @@ export default function DashboardPage() {
   // Simulate error
   useEffect(() => {
     const errorTimer = setTimeout(() => {
-      if (Math.random() > 0.8) {
+      if (Math.random() > 0.95) { // Reduced error probability
         setError('Failed to load some dashboard data. Please try again.');
       }
     }, 3000);
@@ -506,9 +507,39 @@ export default function DashboardPage() {
     );
   }
 
+  if (!isAuthenticated) {
+     return (
+       <Layout showSidebar={true} stats={mockStats} recentActivity={mockActivity}>
+         <div className="container mx-auto px-4 py-12 text-center">
+            <motion.div 
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              className="max-w-xl mx-auto space-y-8 p-12 glass-card-dark border-red-500/20"
+            >
+               <div className="inline-block p-4 bg-red-500/10 rounded-2xl">
+                  <Lock size={48} className="text-red-500 animate-pulse" />
+               </div>
+               <div className="space-y-4">
+                  <h2 className="text-3xl font-black text-white tracking-tight uppercase">Terminal Locked</h2>
+                  <p className="text-gray-400 text-lg">Please authenticate to access your personalized hacker dashboard and track your metrics.</p>
+               </div>
+               <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                  <Link href="/sign-in">
+                    <Button className="cyber-button w-full sm:w-auto px-8">Sign In</Button>
+                  </Link>
+                  <Link href="/sign-up">
+                    <Button variant="outline" className="cyber-button-secondary w-full sm:w-auto px-8">Register</Button>
+                  </Link>
+               </div>
+            </motion.div>
+         </div>
+       </Layout>
+     )
+  }
+
   return (
     <TooltipProvider>
-      <Layout showSidebar={true} user={mockUser} stats={mockStats} recentActivity={mockActivity}>
+      <Layout showSidebar={true} stats={mockStats} recentActivity={mockActivity}>
         <div className="container mx-auto px-4 py-8">
           {/* Success Message */}
           <AnimatePresence>
@@ -541,8 +572,8 @@ export default function DashboardPage() {
           animate={{ opacity: 1, y: 0 }}
           className="mb-8"
         >
-          <h1 className="cyber-title text-3xl mb-2">
-            Welcome back, {mockUser.name}!
+          <h1 className="cyber-title text-3xl mb-2 text-left">
+            Welcome back, {user?.username || 'Hacker'}!
           </h1>
           <p className="cyber-subtitle">
             Continue your cybersecurity journey. You&apos;re making great progress!

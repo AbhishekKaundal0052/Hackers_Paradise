@@ -19,23 +19,17 @@ import {
   Zap,
   Shield,
   Lock,
-  Activity
+  Activity,
+  LogIn
 } from 'lucide-react';
+import { useAuthStore } from '@/lib/auth-store';
 import { Badge } from '@/components/ui/badge';
 import { Progress } from '@/components/ui/progress';
 import { Card, CardContent } from '@/components/ui/card';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { Button } from '@/components/ui/button';
 
 interface SidebarProps {
-  user?: {
-    name: string;
-    email: string;
-    avatar?: string;
-    role: string;
-    level: number;
-    experience: number;
-    nextLevelExp: number;
-  };
   stats?: {
     coursesCompleted: number;
     bountiesWon: number;
@@ -125,7 +119,6 @@ const learningPaths = [
 ];
 
 export default function Sidebar({ 
-  user, 
   stats = {
     coursesCompleted: 8,
     bountiesWon: 12,
@@ -136,8 +129,11 @@ export default function Sidebar({
 }: SidebarProps) {
   const [isCollapsed, setIsCollapsed] = useState(false);
   const pathname = usePathname();
+  const { user, isAuthenticated } = useAuthStore();
 
   const toggleCollapse = () => setIsCollapsed(!isCollapsed);
+  
+  const displayName = user ? `${user.firstName} ${user.lastName}` : 'Guest Hacker';
 
   const mockActivity = [
     {
@@ -193,34 +189,59 @@ export default function Sidebar({
           </motion.button>
         </div>
 
-        {/* User Profile */}
-        {user && !isCollapsed && (
+        {/* User Profile / Guest Disclaimer */}
+        {!isCollapsed && (
           <div className="p-4 border-b border-white/10">
-            <div className="flex items-center space-x-3">
-              <Avatar className="w-12 h-12">
-                <AvatarImage src={user.avatar} alt={user.name} />
-                <AvatarFallback className="bg-primary text-white font-cyber">
-                  {user.name.charAt(0).toUpperCase()}
-                </AvatarFallback>
-              </Avatar>
-              <div className="flex-1 min-w-0">
-                <p className="text-sm font-medium text-white truncate">
-                  {user.name}
-                </p>
-                <p className="text-xs text-muted-foreground truncate">
-                  Level {user.level} • {user.role}
-                </p>
-                <div className="mt-1">
-                  <Progress 
-                    value={(user.experience / user.nextLevelExp) * 100} 
-                    className="h-1"
-                  />
-                  <p className="text-xs text-muted-foreground mt-1">
-                    {user.experience} / {user.nextLevelExp} XP
+            {isAuthenticated && user ? (
+              <div className="flex items-center space-x-3">
+                <Avatar className="w-12 h-12 border-2 border-primary/30">
+                  <AvatarImage src={user.avatar} alt={displayName} />
+                  <AvatarFallback className="bg-gradient-to-br from-primary to-accent text-white font-cyber">
+                    {user.firstName.charAt(0).toUpperCase()}
+                  </AvatarFallback>
+                </Avatar>
+                <div className="flex-1 min-w-0">
+                  <p className="text-sm font-bold text-white truncate">
+                    {user.username}
                   </p>
+                  <p className="text-[10px] text-muted-foreground uppercase tracking-widest truncate">
+                    Level 15 • {user.role}
+                  </p>
+                  <div className="mt-1.5">
+                    <div className="flex justify-between items-center mb-1">
+                       <span className="text-[9px] text-primary font-bold uppercase tracking-tighter">Experience</span>
+                       <span className="text-[9px] text-muted-foreground">75%</span>
+                    </div>
+                    <Progress value={75} className="h-1 bg-white/5" />
+                  </div>
                 </div>
               </div>
-            </div>
+            ) : (
+              <div className="space-y-4">
+                <div className="flex items-center space-x-3 opacity-50 grayscale">
+                  <Avatar className="w-10 h-10 border border-white/10">
+                    <AvatarFallback className="bg-white/5 text-gray-500">
+                      <Lock size={18} />
+                    </AvatarFallback>
+                  </Avatar>
+                  <div className="flex-1 min-w-0">
+                    <p className="text-xs font-bold text-gray-500 uppercase tracking-widest">Guest Mode</p>
+                    <p className="text-[10px] text-gray-600">Limited Access</p>
+                  </div>
+                </div>
+                <div className="p-3 rounded-xl bg-red-500/5 border border-red-500/10">
+                  <p className="text-[10px] text-red-400/80 leading-relaxed mb-3">
+                    Unlock full terminal capabilities, track progress and join bounties.
+                  </p>
+                  <Link href="/sign-in" className="block">
+                    <Button variant="outline" size="sm" className="w-full h-8 text-[10px] uppercase font-bold tracking-widest border-red-500/30 text-red-400 hover:bg-red-500 hover:text-white transition-all">
+                      <LogIn size={12} className="mr-2" />
+                      Initialize Login
+                    </Button>
+                  </Link>
+                </div>
+              </div>
+            )}
           </div>
         )}
 

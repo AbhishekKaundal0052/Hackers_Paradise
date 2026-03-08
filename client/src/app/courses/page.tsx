@@ -2,7 +2,8 @@
 
 import { useState, useEffect, useMemo } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Search, BookOpen, Clock, Star, Users, Zap, Grid3X3, List, Play, Lock, Heart, Target, Code, Share2 } from 'lucide-react'
+import { useRouter } from 'next/navigation'
+import { BookOpen, Clock, Star, Users, Play, Lock, Heart, Target, Code, Share2, Zap } from 'lucide-react'
 import { Badge } from '@/components/ui/badge'
 import {
    formatDuration
@@ -10,10 +11,8 @@ import {
 import { CourseCategory, Difficulty, Course, UserRole } from '@/types'
 import { Card, CardContent } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
-import { Select } from '@/components/ui/select'
-// import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip'
 import { Skeleton } from '@/components/ui/skeleton'
+import { CourseFilters } from '@/components/learning/CourseFilters'
 
 // Mock data for courses
 const mockCourses: Course[] = [
@@ -330,6 +329,7 @@ const userEnrollments = {
 // const difficulties = Object.values(Difficulty)
 
 export default function CoursesPage() {
+  const router = useRouter()
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid')
   const [searchTerm, setSearchTerm] = useState('')
   const [selectedDifficulty, setSelectedDifficulty] = useState<string>('all')
@@ -338,6 +338,20 @@ export default function CoursesPage() {
   const [sortBy, setSortBy] = useState<string>('popular')
   const [isLoading, setIsLoading] = useState(false)
   const [favorites, setFavorites] = useState<string[]>([])
+
+  const handleCourseClick = (id: string) => {
+    router.push(`/courses/${id}`)
+  }
+
+  const handleEnroll = (e: React.MouseEvent, id: string) => {
+    e.stopPropagation()
+    router.push(`/courses/${id}/learn`)
+  }
+
+  const handleContinueLearning = (e: React.MouseEvent, id: string) => {
+    e.stopPropagation()
+    router.push(`/courses/${id}/learn`)
+  }
 
   // Filter and sort courses
   const filteredCourses = useMemo(() => {
@@ -453,7 +467,10 @@ export default function CoursesPage() {
         whileHover={{ y: -5 }}
         className="group"
       >
-        <Card className="cyber-card overflow-hidden cursor-pointer transition-all duration-300 hover:shadow-lg">
+        <Card 
+          onClick={() => handleCourseClick(course.id)}
+          className="cyber-card overflow-hidden cursor-pointer transition-all duration-300 hover:shadow-lg hover:border-primary/50"
+        >
           {/* Course Image */}
           <div className="relative">
             <div className="aspect-video bg-gradient-to-br from-red-500/20 to-purple-500/20 flex items-center justify-center">
@@ -481,7 +498,7 @@ export default function CoursesPage() {
                 e.stopPropagation()
                 toggleFavorite(course.id)
               }}
-              className="absolute top-2 right-2 h-8 w-8 p-0 bg-black/50 hover:bg-black/70"
+              className="absolute top-2 right-2 h-8 w-8 p-0 bg-black/50 hover:bg-black/70 z-10"
             >
               <Heart className={`w-4 h-4 ${isFavorite ? 'text-red-400 fill-red-400' : 'text-white'}`} />
             </Button>
@@ -557,16 +574,30 @@ export default function CoursesPage() {
               {/* Action Buttons */}
               <div className="flex items-center space-x-2 pt-2">
                 {isEnrolled ? (
-                  <Button className="flex-1 cyber-button">
+                  <Button 
+                    onClick={(e) => handleContinueLearning(e, course.id)}
+                    className="flex-1 cyber-button"
+                  >
                     <Play className="w-4 h-4 mr-2" />
                     Continue Learning
                   </Button>
                 ) : (
-                  <Button className="flex-1 cyber-button">
+                  <Button 
+                    onClick={(e) => handleEnroll(e, course.id)}
+                    className="flex-1 cyber-button"
+                  >
                     {course.isFree ? 'Enroll Free' : 'Enroll Now'}
                   </Button>
                 )}
-                <Button size="sm" variant="outline" className="cyber-button-secondary">
+                <Button 
+                  size="sm" 
+                  variant="outline" 
+                  className="cyber-button-secondary"
+                  onClick={(e) => {
+                    e.stopPropagation()
+                    // handleShare logic
+                  }}
+                >
                   <Share2 className="w-4 h-4" />
                 </Button>
               </div>
@@ -672,12 +703,18 @@ export default function CoursesPage() {
                 {/* Action Buttons */}
                 <div className="flex items-center space-x-2">
                   {isEnrolled ? (
-                    <Button className="cyber-button">
+                    <Button 
+                      onClick={(e) => handleContinueLearning(e, course.id)}
+                      className="cyber-button"
+                    >
                       <Play className="w-4 h-4 mr-2" />
                       Continue Learning
                     </Button>
                   ) : (
-                    <Button className="cyber-button">
+                    <Button 
+                      onClick={(e) => handleEnroll(e, course.id)}
+                      className="cyber-button"
+                    >
                       {course.isFree ? 'Enroll Free' : 'Enroll Now'}
                     </Button>
                   )}
@@ -692,7 +729,7 @@ export default function CoursesPage() {
                   >
                     <Heart className={`w-4 h-4 ${isFavorite ? 'text-red-400 fill-red-400' : ''}`} />
                   </Button>
-                  <Button size="sm" variant="outline" className="cyber-button-secondary">
+                  <Button size="sm" variant="outline" className="cyber-button-secondary" onClick={(e) => e.stopPropagation()}>
                     <Share2 className="w-4 h-4" />
                   </Button>
                 </div>
@@ -730,91 +767,24 @@ export default function CoursesPage() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.1 }}
-          className="mb-8 space-y-4"
+          className="mb-8"
         >
-          {/* Search Bar */}
-          <div className="relative">
-            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-muted-foreground" />
-            <Input
-              placeholder="Search courses, topics, or instructors..."
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              className="pl-10 bg-white/5 border-white/10 focus:border-primary"
-            />
-          </div>
-
-          {/* Filters and Controls */}
-          <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between space-y-4 lg:space-y-0">
-            {/* Filters */}
-            <div className="flex flex-wrap items-center space-x-4">
-              <Select value={selectedDifficulty} onChange={e => setSelectedDifficulty(e.target.value)}>
-                <option value="all">All Difficulties</option>
-                <option value="beginner">Beginner</option>
-                <option value="intermediate">Intermediate</option>
-                <option value="advanced">Advanced</option>
-                <option value="expert">Expert</option>
-              </Select>
-
-              <Select value={selectedCategory} onChange={e => setSelectedCategory(e.target.value)}>
-                <option value="all">All Categories</option>
-                <option value="penetration_testing">Penetration Testing</option>
-                <option value="web_security">Web Security</option>
-                <option value="network_security">Network Security</option>
-                <option value="cryptography">Cryptography</option>
-                <option value="forensics">Forensics</option>
-                <option value="malware_analysis">Malware Analysis</option>
-              </Select>
-
-              <Select value={selectedDuration} onChange={e => setSelectedDuration(e.target.value)}>
-                <option value="all">Any Duration</option>
-                <option value="0-2">0-2 hours</option>
-                <option value="2-5">2-5 hours</option>
-                <option value="5-10">5-10 hours</option>
-                <option value="10-">10+ hours</option>
-              </Select>
-
-              <Select value={sortBy} onChange={e => setSortBy(e.target.value)}>
-                <option value="popular">Most Popular</option>
-                <option value="rating">Highest Rated</option>
-                <option value="newest">Newest</option>
-                <option value="price-low">Price: Low to High</option>
-                <option value="price-high">Price: High to Low</option>
-                <option value="duration">Duration</option>
-              </Select>
-            </div>
-
-            {/* View Toggle */}
-            <div className="flex items-center space-x-2">
-              <Button
-                size="sm"
-                variant={viewMode === 'grid' ? 'default' : 'outline'}
-                onClick={() => setViewMode('grid')}
-                className="cyber-button-secondary"
-              >
-                <Grid3X3 className="w-4 h-4" />
-              </Button>
-              <Button
-                size="sm"
-                variant={viewMode === 'list' ? 'default' : 'outline'}
-                onClick={() => setViewMode('list')}
-                className="cyber-button-secondary"
-              >
-                <List className="w-4 h-4" />
-              </Button>
-            </div>
-          </div>
-        </motion.div>
-
-        {/* Results Count */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.2 }}
-          className="mb-6"
-        >
-          <p className="text-muted-foreground">
-            Showing {filteredCourses.length} of {mockCourses.length} courses
-          </p>
+          <CourseFilters
+            searchTerm={searchTerm}
+            setSearchTerm={setSearchTerm}
+            selectedDifficulty={selectedDifficulty}
+            setSelectedDifficulty={setSelectedDifficulty}
+            selectedCategory={selectedCategory}
+            setSelectedCategory={setSelectedCategory}
+            selectedDuration={selectedDuration}
+            setSelectedDuration={setSelectedDuration}
+            sortBy={sortBy}
+            setSortBy={setSortBy}
+            viewMode={viewMode}
+            setViewMode={setViewMode}
+            totalResults={filteredCourses.length}
+            totalCourses={mockCourses.length}
+          />
         </motion.div>
 
         {/* Course Grid/List */}

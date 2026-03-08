@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
+import { useRouter, useParams } from 'next/navigation';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -16,9 +17,11 @@ import {
   Heart,
   Share2,
   Lock,
+  Unlock,
   Video,
   Download,
-  CheckCircle
+  CheckCircle,
+  ChevronRight
 } from 'lucide-react';
 import { Course, CourseCategory, Difficulty, UserRole } from '@/types';
 import CertificatePreviewModal from '@/components/learning/CertificatePreviewModal';
@@ -76,6 +79,8 @@ const mockCourse: Course = {
 };
 
 export default function CourseDetailPage() {
+  const router = useRouter();
+  const params = useParams();
   const [activeTab, setActiveTab] = useState('overview');
   // const [isEnrolled, setIsEnrolled] = useState(false);
   const [isFavorite, setIsFavorite] = useState(false);
@@ -95,6 +100,14 @@ export default function CourseDetailPage() {
       localStorage.setItem(`favorite-course-${course.id}`, String(!prev));
       return !prev;
     });
+  };
+
+  const handleEnroll = () => {
+    router.push(`/courses/${params.id}/learn`);
+  };
+
+  const handleStartLesson = (lessonId: string) => {
+    router.push(`/courses/${params.id}/learn?lesson=${lessonId}`);
   };
 
   const handleShare = () => {
@@ -238,7 +251,10 @@ export default function CourseDetailPage() {
                         )}
                       </div>
 
-                      <Button className="w-full cyber-button text-lg py-3">
+                      <Button 
+                        onClick={handleEnroll}
+                        className="w-full cyber-button text-lg py-3"
+                      >
                         Enroll Now
                       </Button>
 
@@ -351,18 +367,22 @@ export default function CourseDetailPage() {
                 <CardContent>
                   <div className="space-y-2">
                     {course.lessons.map((lesson, index) => (
-                      <div key={lesson.id} className="border border-white/10 rounded-lg p-4">
+                      <div 
+                        key={lesson.id} 
+                        onClick={() => handleStartLesson(lesson.id)}
+                        className="border border-white/10 rounded-lg p-4 hover:bg-white/5 hover:border-primary/50 transition-all cursor-pointer group"
+                      >
                         <div className="flex items-center justify-between">
                           <div className="flex items-center space-x-3">
-                            <div className="w-8 h-8 rounded-full bg-primary/20 flex items-center justify-center">
+                            <div className="w-8 h-8 rounded-full bg-primary/20 flex items-center justify-center group-hover:bg-primary/40 transition-colors">
                               <span className="text-sm font-medium">{index + 1}</span>
                             </div>
                             <div>
-                              <h4 className="font-medium text-white">{lesson.title}</h4>
+                              <h4 className="font-medium text-white group-hover:text-primary transition-colors">{lesson.title}</h4>
                               <p className="text-sm text-muted-foreground">{formatDuration(lesson.duration)}</p>
                             </div>
                           </div>
-                          <Lock className="w-5 h-5 text-muted-foreground" />
+                          <Play className="w-5 h-5 text-muted-foreground group-hover:text-primary group-hover:fill-primary/20 transition-all" />
                         </div>
                       </div>
                     ))}

@@ -61,7 +61,7 @@ export default function Footer() {
                 <Shield className="w-5 h-5 text-white" />
               </div>
               <span className="font-cyber font-bold text-xl text-white">
-                Cyber<span className="text-primary">Haven</span>
+                Hacker&apos;s <span className="text-primary">Paradise</span>
               </span>
             </Link>
             <p className="text-muted-foreground mb-6 leading-relaxed">
@@ -165,7 +165,7 @@ export default function Footer() {
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-6">
           <div className="flex flex-col md:flex-row items-center justify-between space-y-4 md:space-y-0">
             <div className="flex items-center space-x-4 text-sm text-muted-foreground">
-              <span>&copy; 2024 CyberHaven. All rights reserved.</span>
+              <span>&copy; 2026 Hacker's Paradise. All rights reserved.</span>
               <span className="hidden sm:inline">•</span>
               <Link href="/terms" className="hover:text-primary transition-colors">
                 Terms of Service
