@@ -154,12 +154,18 @@ export const FeaturedCarousel: React.FC<FeaturedCarouselProps> = ({ posts }) => 
         {/* Navigation Arrows - Hover Only */}
         <div className="absolute inset-y-0 left-0 right-0 flex items-center justify-between px-4 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-300">
           <button
+            type="button"
+            aria-label="Previous slide"
+            title="Previous slide"
             onClick={prevSlide}
             className="pointer-events-auto w-12 h-12 flex items-center justify-center rounded-full bg-black/40 backdrop-blur-xl border border-white/10 text-white hover:bg-red-500 transition-all shadow-2xl group/prev"
           >
             <ChevronLeft className="w-6 h-6 group-hover/prev:-translate-x-0.5 transition-transform" />
           </button>
           <button
+            type="button"
+            aria-label="Next slide"
+            title="Next slide"
             onClick={nextSlide}
             className="pointer-events-auto w-12 h-12 flex items-center justify-center rounded-full bg-black/40 backdrop-blur-xl border border-white/10 text-white hover:bg-red-500 transition-all shadow-2xl group/next"
           >
@@ -183,7 +189,10 @@ export const FeaturedCarousel: React.FC<FeaturedCarouselProps> = ({ posts }) => 
       <div className="flex justify-center gap-3 mt-6">
         {posts.map((_, index) => (
           <button
+            type="button"
             key={index}
+            aria-label={`Go to slide ${index + 1}`}
+            title={`Go to slide ${index + 1}`}
             onClick={() => {
                setDirection(index > currentIndex ? 1 : -1);
                setCurrentIndex(index);

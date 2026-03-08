@@ -84,7 +84,10 @@ export const BountyFiltersEnhanced: React.FC<BountyFiltersProps> = ({
               className="pl-12 h-14 bg-[#0a0f16] border-white/10 focus:border-red-500/50 focus:ring-0 rounded-xl text-lg transition-all"
             />
             {searchTerm && (
-              <button 
+              <button
+                type="button"
+                aria-label="Clear search"
+                title="Clear search"
                 onClick={() => setSearchTerm('')}
                 className="absolute right-4 p-1 hover:bg-white/10 rounded-full transition-colors"
               >
@@ -112,6 +115,9 @@ export const BountyFiltersEnhanced: React.FC<BountyFiltersProps> = ({
 
           <div className="flex bg-[#0a0f16] border border-white/10 rounded-xl p-1 h-14">
             <button
+              type="button"
+              aria-label="Grid view"
+              title="Grid view"
               onClick={() => setViewMode('grid')}
               className={cn(
                 "px-4 rounded-lg flex items-center justify-center transition-all",
@@ -123,6 +129,9 @@ export const BountyFiltersEnhanced: React.FC<BountyFiltersProps> = ({
               <Grid3X3 className="w-5 h-5" />
             </button>
             <button
+              type="button"
+              aria-label="List view"
+              title="List view"
               onClick={() => setViewMode('list')}
               className={cn(
                 "px-4 rounded-lg flex items-center justify-center transition-all",
