@@ -116,10 +116,10 @@ export const BlogCard: React.FC<BlogCardProps> = ({ post, viewMode = 'grid' }) =
               </Badge>
            </div>
            <div className="absolute bottom-4 right-4 flex gap-2">
-              <button className="p-2 bg-black/60 backdrop-blur-md rounded-lg border border-white/10 text-white hover:bg-red-500 transition-colors">
+              <button type="button" aria-label="Bookmark" title="Bookmark" className="p-2 bg-black/60 backdrop-blur-md rounded-lg border border-white/10 text-white hover:bg-red-500 transition-colors">
                  <Bookmark className="w-4 h-4" />
               </button>
-              <button className="p-2 bg-black/60 backdrop-blur-md rounded-lg border border-white/10 text-white hover:bg-red-500 transition-colors">
+              <button type="button" aria-label="Share" title="Share" className="p-2 bg-black/60 backdrop-blur-md rounded-lg border border-white/10 text-white hover:bg-red-500 transition-colors">
                  <Share2 className="w-4 h-4" />
               </button>
            </div>
